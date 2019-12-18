@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +15,20 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FloatingActionButton floatingActionButton;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+
+    private List<ListItem> listItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,5 +73,20 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        listItems = new ArrayList<>();
+
+        for(int i=0; i<=29; i++){
+            ListItem listItem = new ListItem("Heading "+ (i+1), "Dummy");
+            listItems.add(listItem);
+        }
+
+        adapter = new MyAdapter(listItems, this);
+
+        recyclerView.setAdapter(adapter);
     }
 }

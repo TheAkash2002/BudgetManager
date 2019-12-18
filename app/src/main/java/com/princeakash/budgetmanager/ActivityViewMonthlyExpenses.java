@@ -1,9 +1,11 @@
 package com.princeakash.budgetmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
@@ -14,6 +16,7 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
     RadioGroup radioGroup;
     Button btnViewData;
     Spinner spinnerMonth, spinnerYear;
+    RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,21 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent intent;
+                        switch(radioGroup.getCheckedRadioButtonId()){
+                            case R.id.radioList:
+                                intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesList.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.radioBar:
+                                intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesBar.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.radioPie:
+                                intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesPie.class);
+                                startActivity(intent);
+                                break;
+                        }
 
                     }
                 }
