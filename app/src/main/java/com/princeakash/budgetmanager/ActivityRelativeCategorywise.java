@@ -3,6 +3,7 @@ package com.princeakash.budgetmanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -23,6 +24,17 @@ public class ActivityRelativeCategorywise extends AppCompatActivity {
         spinnerToYear = findViewById(R.id.spinnerToYear);
         spinnerCategory = findViewById(R.id.spinnerCategory);
         btnSeeData = findViewById(R.id.buttonSeeData);
+
+        ArrayAdapter<CharSequence> adapterMonth = ArrayAdapter.createFromResource(this, R.array.Months, android.R.layout.simple_spinner_item);
+        adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFromMonth.setAdapter(adapterMonth);
+        spinnerToMonth.setAdapter(adapterMonth);
+
+        ArrayAdapter<CharSequence> adapterYear = ArrayAdapter.createFromResource(this, R.array.Years, android.R.layout.simple_spinner_item);
+        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFromYear.setAdapter(adapterYear);
+        spinnerToYear.setAdapter(adapterYear);
+
         btnSeeData.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

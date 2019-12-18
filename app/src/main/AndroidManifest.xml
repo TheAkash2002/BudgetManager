@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAddExpense"></activity>
+        <activity android:name=".ActivityAddExpense"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -18,15 +19,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityViewMonthlyExpenses" />
-        <activity android:name=".ActivityViewMonthlyExpensesBar" />
-        <activity android:name=".ActivityViewMonthlyExpensesList" />
-        <activity android:name=".ActivityViewMonthlyExpensesPie" />
-        <activity android:name=".ActivityTrackRelative" />
-        <activity android:name=".ActivityRelativeMonthly" />
+        <activity android:name=".ActivityViewMonthlyExpenses"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ActivityViewMonthlyExpensesBar"
+            android:parentActivityName=".ActivityViewMonthlyExpenses"/>
+        <activity android:name=".ActivityViewMonthlyExpensesList"
+            android:parentActivityName=".ActivityViewMonthlyExpenses"/>
+        <activity android:name=".ActivityViewMonthlyExpensesPie"
+            android:parentActivityName=".ActivityViewMonthlyExpenses"/>
+        <activity android:name=".ActivityTrackRelative"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ActivityRelativeMonthly"
+            android:parentActivityName=".ActivityTrackRelative"/>
         <activity android:name=".ActivityRelativeLine" />
-        <activity android:name=".ActivityRelativeCategorywise" />
-        <activity android:name=".ActivityAddTarget" />
+        <activity android:name=".ActivityRelativeCategorywise"
+            android:parentActivityName=".ActivityTrackRelative"/>
+        <activity android:name=".ActivityAddTarget"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
