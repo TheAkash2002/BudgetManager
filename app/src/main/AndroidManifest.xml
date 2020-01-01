@@ -36,6 +36,7 @@
             android:parentActivityName=".ActivityTrackRelative"/>
         <activity android:name=".ActivityAddTarget"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ActivityViewAddCategory" />
     </application>
 
 </manifest>

@@ -33,8 +33,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ListItem listItem = listItems.get(position);
 
-        holder.textViewHead.setText(listItem.getHead());
-        holder.textViewDesc.setText(listItem.getDesc());
+        holder.textViewAmount.setText(listItem.getAmount());
+        holder.textViewDate.setText(listItem.getDate());
+        holder.textViewCategory.setText(listItem.getCategory());
     }
 
     @Override
@@ -44,13 +45,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewHead, textViewDesc;
+        public TextView textViewCategory, textViewAmount, textViewDate;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewDesc = itemView.findViewById(R.id.textViewDesc);
-            textViewHead = itemView.findViewById(R.id.textViewHead);
+            textViewAmount = itemView.findViewById(R.id.textViewAmount);
+            textViewCategory = itemView.findViewById(R.id.textViewCategory);
+            textViewDate = itemView.findViewById(R.id.textViewDate);
         }
 
     }
