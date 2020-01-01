@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,10 +30,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private List<ListItem> listItems;
+
+    DatabaseHelper myDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myDb = new DatabaseHelper(this);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,11 +85,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         listItems = new ArrayList<>();
-
-        for(int i=0; i<=29; i++){
-            ListItem listItem = new ListItem("Heading "+ (i+1), "Dummy");
-            listItems.add(listItem);
-        }
+        listItems = myDb.viewAllExpenseData();
 
         adapter = new MyAdapter(listItems, this);
 

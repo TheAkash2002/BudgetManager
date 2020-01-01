@@ -110,18 +110,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public Integer deleteExpenseData(int id){
+    /*public Integer deleteExpenseData(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         Integer id2 = id;
         return db.delete(expenseTable, "ID = ?", new String[] {id2.toString()});
     }
+    */
 
     public void updateExpenseData(){
 
     }
 
-    public void viewAllExpenseData(){
-
+    public ArrayList<ListItem> viewAllExpenseData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable, null);
+        ArrayList<ListItem> listItems = new ArrayList<>();
+        String category, date;
+        Integer id, amount;
+        while(res.moveToNext()){
+            id = Integer.parseInt(res.getString(0));
+            amount = Integer.parseInt(res.getString(1));
+            category = res.getString(2);
+            date = res.getString(3);
+            ListItem temp = new ListItem(category, amount, id, date);
+            listItems.add(temp);
+        }
+        return listItems;
     }
 
     public void viewMonthlyExpenseData(String month, String year){
