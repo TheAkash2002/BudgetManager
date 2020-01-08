@@ -175,5 +175,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor viewRelativeDataMonthly(String startMonth, String startYear, String endMonth, String endYear){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " ORDER BY " + colExpenseDate + " DESC", null);
+        return res;
+    }
+
 
 }

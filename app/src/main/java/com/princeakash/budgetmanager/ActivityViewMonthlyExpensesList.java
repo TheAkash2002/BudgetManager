@@ -17,6 +17,7 @@ public class ActivityViewMonthlyExpensesList extends AppCompatActivity {
     String eMonth, eYear;
 
     private List<ListItem> listItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class ActivityViewMonthlyExpensesList extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         eMonth = bundle.getString("TargetMonth");
         eYear = bundle.getString("TargetYear");
+
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
