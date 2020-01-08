@@ -17,6 +17,38 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
     Button btnViewData;
     Spinner spinnerMonth, spinnerYear;
     RadioButton radioButton;
+    String targetMonth, targetYear;
+
+    public void TextToNum(){
+        String tMonth = spinnerMonth.getSelectedItem().toString();
+        targetYear = spinnerYear.getSelectedItem().toString();
+        switch (tMonth){
+            case "January": targetMonth = "01";
+                break;
+            case "February": targetMonth = "02";
+                break;
+            case "March": targetMonth = "03";
+                break;
+            case "April": targetMonth = "04";
+                break;
+            case "May": targetMonth = "05";
+                break;
+            case "June": targetMonth = "06";
+                break;
+            case "July": targetMonth = "07";
+                break;
+            case "August": targetMonth = "08";
+                break;
+            case "September": targetMonth = "09";
+                break;
+            case "October": targetMonth = "10";
+                break;
+            case "November": targetMonth = "11";
+                break;
+            case "December": targetMonth = "12";
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +74,24 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
                         Intent intent;
                         switch(radioGroup.getCheckedRadioButtonId()){
                             case R.id.radioList:
+                                TextToNum();
                                 intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesList.class);
+                                intent.putExtra("TargetYear", targetYear);
+                                intent.putExtra("TargetMonth", targetMonth);
                                 startActivity(intent);
                                 break;
                             case R.id.radioBar:
+                                TextToNum();
                                 intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesBar.class);
+                                intent.putExtra("TargetYear", targetYear);
+                                intent.putExtra("TargetMonth", targetMonth);
                                 startActivity(intent);
                                 break;
                             case R.id.radioPie:
+                                TextToNum();
                                 intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesPie.class);
+                                intent.putExtra("TargetYear", targetYear);
+                                intent.putExtra("TargetMonth", targetMonth);
                                 startActivity(intent);
                                 break;
                         }

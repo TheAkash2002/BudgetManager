@@ -29,6 +29,7 @@ public class ActivityViewAddCategory extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private List<ListItem> listItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +82,7 @@ public class ActivityViewAddCategory extends AppCompatActivity {
         listItems = new ArrayList<>();
 
         for(int i=0; i<=29; i++){
-            ListItem listItem = new ListItem("Books", i+1, 12, "22/09/2019");
+            ListItem listItem = new ListItem("Books", "SubHeading " + (i+1), "SubHeading " + "12", "22/09/2019");
             listItems.add(listItem);
         }
 

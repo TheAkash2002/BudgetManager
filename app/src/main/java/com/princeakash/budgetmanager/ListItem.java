@@ -3,11 +3,11 @@ package com.princeakash.budgetmanager;
 public class ListItem {
 
     private String category;
-    private Integer amount;
-    private Integer id;
+    private String amount;
+    private String id;
     private String date;
 
-    public ListItem(String category, Integer amount, Integer id, String date) {
+    public ListItem(String id, String amount, String category, String date) {
         this.category = category;
         this.amount = amount;
         this.id = id;
@@ -18,16 +18,17 @@ public class ListItem {
         return category;
     }
 
-    public Integer getAmount(){
+    public String getAmount(){
         return amount;
     }
 
-    public Integer getId(){
+    public String getId(){
         return id;
     }
 
     public String getDate(){
         return date;
     }
+
 }
 

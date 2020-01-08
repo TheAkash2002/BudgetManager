@@ -9,11 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
-    private List<ListItem> listItems;
+    List<ListItem> listItems = new ArrayList<>();
 
     public MyAdapter(List<ListItem> listItems, Context context) {
         this.listItems = listItems;

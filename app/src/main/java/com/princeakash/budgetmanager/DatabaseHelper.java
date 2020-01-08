@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -12,6 +13,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static java.lang.Integer.parseInt;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -50,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long insert;
 
         if(db.rawQuery("SELECT * FROM " + categoryTable + " WHERE " + colCategoryName + " = ?", new String[] {"Books And Stationery"}).getCount()==0){
+            Log.d("B&S", "Added B&S");
             contentValues.clear();
             contentValues.put(colCategoryName, "Books And Stationery");
             insert = db.insert(categoryTable, colCategoryID, contentValues);
@@ -74,6 +78,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(colCategoryName, "Party");
             insert = db.insert(categoryTable, colCategoryID, contentValues);
         }
+        if(db.rawQuery("SELECT * FROM " + categoryTable + " WHERE " + colCategoryName + " = ?", new String[] {"Party"}).getCount()==0){
+            contentValues.clear();
+            contentValues.put(colCategoryName, "Target");
+            insert = db.insert(categoryTable, colCategoryID, contentValues);
+        }
 
     }
 
@@ -92,11 +101,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return !(insert==-1);
     }
 
-    public boolean insertExpenseData(String category, int amount){
+    public boolean insertExpenseData(String category, String amount){
         SQLiteDatabase db = this.getWritableDatabase();
 
         calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = simpleDateFormat.format(calendar.getTime());
 
         ContentValues contentValues = new ContentValues();
@@ -110,7 +119,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    /*public Integer deleteExpenseData(int id){
+    /*
+    public Integer deleteExpenseData(int id){
         SQLiteDatabase db = this.getWritableDatabase();
         Integer id2 = id;
         return db.delete(expenseTable, "ID = ?", new String[] {id2.toString()});
@@ -121,28 +131,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ListItem> viewAllExpenseData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable, null);
-        ArrayList<ListItem> listItems = new ArrayList<>();
-        String category, date;
-        Integer id, amount;
-        while(res.moveToNext()){
-            id = Integer.parseInt(res.getString(0));
-            amount = Integer.parseInt(res.getString(1));
-            category = res.getString(2);
-            date = res.getString(3);
-            ListItem temp = new ListItem(category, amount, id, date);
-            listItems.add(temp);
-        }
-        return listItems;
+    public Cursor viewAllExpenseData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " ORDER BY " + colExpenseDate + " DESC", null);
+        return res;
     }
 
-    public void viewMonthlyExpenseData(String month, String year){
-
+    public Cursor viewMonthlyExpenseData(String month, String year){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String startDate = year + "-" + month + "-00";
+        String endDate = year + "-" + month + "-31";
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseDate + " BETWEEN ? AND ?", new String[] {startDate, endDate});
+        return res;
     }
 
-    public boolean insertTargetData(int amount, String month, String year){
+    public Cursor viewMonthlyExpenseDataPie(String month, String year){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String startDate = year + "-" + month + "-00";
+        String endDate = year + "-" + month + "-31";
+        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + "), " + colExpenseCategory + " FROM " + expenseTable + " WHERE " + colExpenseDate + " BETWEEN ? AND ? GROUP BY " + colExpenseCategory, new String[] {startDate, endDate});
+        return res;
+    }
+
+    public boolean insertTargetData(String amount, String month, String year){
         SQLiteDatabase db = this.getWritableDatabase();
 
         String date = year + "-" + month + "-01";
@@ -156,6 +167,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         else
             return true;
+    }
+
+    public Cursor viewAllCategoryData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + categoryTable, null);
+        return res;
     }
 
 

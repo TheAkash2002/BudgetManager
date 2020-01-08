@@ -47,4 +47,13 @@
         <item>2029</item>
         <item>2030</item>
     </string-array>
+    <string-array name="Cats">
+        <item>Books And Stationery</item>
+        <item>Food</item>
+        <item>Cloth Wash</item>
+        <item>Recharge</item>
+        <item>Party</item>
+    </string-array>
+    <string name="OpenDrawer">Open Navigation Drawer</string>
+    <string name="CloseDrawer">Close Navigation Drawer</string>
 </resources>
