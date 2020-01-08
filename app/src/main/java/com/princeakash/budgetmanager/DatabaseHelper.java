@@ -175,9 +175,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor viewRelativeDataMonthly(String startMonth, String startYear, String endMonth, String endYear){
+    public Cursor viewRelativeDataMonthly(String month, String year){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " ORDER BY " + colExpenseDate + " DESC", null);
+        String startDate = year + "-" + month + "-00";
+        String endDate = year + "-" + month + "-31";
+        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseDate + " BETWEEN ? AND ?", new String[] {startDate, endDate});
+        return res;
+    }
+
+    public Cursor viewRelativeDataCategoryWise(String month, String year, String category){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String startDate = year + "-" + month + "-00";
+        String endDate = year + "-" + month + "-31";
+        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ? AND "+ colExpenseDate + " BETWEEN ? AND ?", new String[] {category, startDate, endDate});
         return res;
     }
 
