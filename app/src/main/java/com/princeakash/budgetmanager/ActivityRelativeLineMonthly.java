@@ -18,13 +18,14 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
-//import com.anychart.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityRelativeLine extends AppCompatActivity {
-    String fromYear, fromMonth, toYear, toMonth, selectedCategory;
+//import com.anychart.sample.R;
+
+public class ActivityRelativeLineMonthly extends AppCompatActivity {
+    String fromYear, fromMonth, toYear, toMonth;
     DatabaseHelper myDb;
     List<ChartEntry> chartEntries;
 
@@ -36,18 +37,12 @@ public class ActivityRelativeLine extends AppCompatActivity {
         chartEntries = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
-        selectedCategory = bundle.getString("SelectedCategory");
         fromMonth = bundle.getString("FromMonth");
         fromYear = bundle.getString("FromYear");
         toMonth = bundle.getString("ToMonth");
         toYear = bundle.getString("ToYear");
 
-        if(selectedCategory == "FullExpense"){
-            Monthly();
-        }
-        else{
-            CategoryWise();
-        }
+        Monthly();
 
         AnyChartView anyChartView = findViewById(R.id.chartLine);
         //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
@@ -75,6 +70,7 @@ public class ActivityRelativeLine extends AppCompatActivity {
         for(int i=0; i<chartEntries.size(); i++){
             seriesData.add(new ValueDataEntry(chartEntries.get(i).getStr(), chartEntries.get(i).getAmount()));
         }
+
         /*seriesData.add(new ValueDataEntry("1986", 3.6));
         seriesData.add(new ValueDataEntry("1987", 6.6));
         seriesData.add(new ValueDataEntry("1988", 0.6));
@@ -182,7 +178,7 @@ public class ActivityRelativeLine extends AppCompatActivity {
         }
     }
 
-    public void CategoryWise(){
+    /*public void CategoryWise(){
         Cursor cursor;
         String items;
         int firstNum = Integer.parseInt(fromYear+fromMonth);
@@ -216,7 +212,7 @@ public class ActivityRelativeLine extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 
 
 }

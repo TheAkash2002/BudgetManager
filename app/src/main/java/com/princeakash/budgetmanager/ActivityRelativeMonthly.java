@@ -98,8 +98,7 @@ public class ActivityRelativeMonthly extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         TextToNum();
-                        Intent intent = new Intent(ActivityRelativeMonthly.this, ActivityRelativeLine.class);
-                        intent.putExtra("SelectedCategory", "FullMonthly");
+                        Intent intent = new Intent(ActivityRelativeMonthly.this, ActivityRelativeLineMonthly.class);
                         intent.putExtra("FromMonth", fromMonth);
                         intent.putExtra("FromYear", fromYear);
                         intent.putExtra("ToMonth", toMonth);

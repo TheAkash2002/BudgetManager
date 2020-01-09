@@ -133,7 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor viewAllExpenseData(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " ORDER BY " + colExpenseDate + " DESC", null);
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseCategory + " <> ? ORDER BY " + colExpenseDate + " DESC", new String[] {"Target"});
         return res;
     }
 
@@ -141,7 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String startDate = year + "-" + month + "-00";
         String endDate = year + "-" + month + "-31";
-        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseDate + " BETWEEN ? AND ?", new String[] {startDate, endDate});
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseCategory + " <> ? AND " + colExpenseDate + " BETWEEN ? AND ?", new String[] {"Target", startDate, endDate});
         return res;
     }
 
@@ -149,7 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String startDate = year + "-" + month + "-00";
         String endDate = year + "-" + month + "-31";
-        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + "), " + colExpenseCategory + " FROM " + expenseTable + " WHERE " + colExpenseDate + " BETWEEN ? AND ? GROUP BY " + colExpenseCategory, new String[] {startDate, endDate});
+        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + "), " + colExpenseCategory + " FROM " + expenseTable + " WHERE " + colExpenseCategory + " <> ? AND " + colExpenseDate + " BETWEEN ? AND ? GROUP BY " + colExpenseCategory, new String[] {"Target", startDate, endDate});
         return res;
     }
 
@@ -179,7 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String startDate = year + "-" + month + "-00";
         String endDate = year + "-" + month + "-31";
-        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseDate + " BETWEEN ? AND ?", new String[] {startDate, endDate});
+        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseCategory + " <> ? AND " + colExpenseDate + " BETWEEN ? AND ?", new String[] {"Target", startDate, endDate});
         return res;
     }
 
@@ -189,6 +189,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String endDate = year + "-" + month + "-31";
         Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ? AND "+ colExpenseDate + " BETWEEN ? AND ?", new String[] {category, startDate, endDate});
         return res;
+    }
+
+    public Boolean isTargetSet(String month, String year){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String startDate = year + "-" + month + "-00";
+        String endDate = year + "-" + month + "-31";
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ? AND "+ colExpenseDate + " BETWEEN ? AND ?", new String[] {"Target", startDate, endDate});
+        res.moveToFirst();
+        if(res.getCount()==0)
+            return false;
+        else
+            return true;
+    }
+
+    public int getTarget(String month, String year){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String startDate = year + "-" + month + "-00";
+        String endDate = year + "-" + month + "-31";
+        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ? AND "+ colExpenseDate + " BETWEEN ? AND ?", new String[] {"Target", startDate, endDate});
+        res.moveToFirst();
+        return res.getInt(0);
+    }
+
+    public int getTotalExpensesTillNow(String month, String year){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String startDate = year + "-" + month + "-00";
+        String endDate = year + "-" + month + "-31";
+        Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseCategory + " <> ? AND "+ colExpenseDate + " BETWEEN ? AND ?", new String[] {"Target", startDate, endDate});
+        res.moveToFirst();
+        return res.getInt(0);
     }
 
 

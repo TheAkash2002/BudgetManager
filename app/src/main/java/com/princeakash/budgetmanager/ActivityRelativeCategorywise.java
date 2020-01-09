@@ -104,7 +104,7 @@ public class ActivityRelativeCategorywise extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         TextToNum();
-                        Intent intent = new Intent(ActivityRelativeCategorywise.this, ActivityRelativeLine.class);
+                        Intent intent = new Intent(ActivityRelativeCategorywise.this, ActivityRelativeLineCategorywise.class);
                         intent.putExtra("SelectedCategory", selectedCategory);
                         intent.putExtra("FromMonth", fromMonth);
                         intent.putExtra("FromYear", fromYear);

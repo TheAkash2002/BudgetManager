@@ -80,10 +80,14 @@ public class ActivityAddTarget extends AppCompatActivity implements AdapterView.
                                 break;
                         }
                         //Toast.makeText(ActivityAddTarget.this, targetYear + "-" + targetMonth, LENGTH_SHORT).show();
-                        boolean isInserted = myDb.insertTargetData(editTarget.getText().toString(), targetMonth, targetYear );
-                        if(isInserted == true) {
-                            Toast.makeText(ActivityAddTarget.this, "Data Inserted", LENGTH_SHORT).show();
+                        if(myDb.isTargetSet(targetMonth, targetYear)==false) {
+                            boolean isInserted = myDb.insertTargetData(editTarget.getText().toString(), targetMonth, targetYear);
+                            if (isInserted == true) {
+                                Toast.makeText(ActivityAddTarget.this, "Target successfully set for " + targetYear + "-" + targetMonth, LENGTH_SHORT).show();
+                            }
                         }
+                        else
+                            Toast.makeText(ActivityAddTarget.this, "Target already set for this month! Target data not inserted.", LENGTH_SHORT).show();
 
                     }
                 }

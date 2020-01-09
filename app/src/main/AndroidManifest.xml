@@ -31,12 +31,13 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".ActivityRelativeMonthly"
             android:parentActivityName=".ActivityTrackRelative"/>
-        <activity android:name=".ActivityRelativeLine" />
+        <activity android:name=".ActivityRelativeLineCategorywise" />
         <activity android:name=".ActivityRelativeCategorywise"
             android:parentActivityName=".ActivityTrackRelative"/>
         <activity android:name=".ActivityAddTarget"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".ActivityViewAddCategory" />
+        <activity android:name=".ActivityRelativeLineMonthly" />
     </application>
 
 </manifest>
