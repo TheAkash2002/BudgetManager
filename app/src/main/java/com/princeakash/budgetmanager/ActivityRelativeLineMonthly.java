@@ -22,8 +22,6 @@ import com.anychart.graphics.vector.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.anychart.sample.R;
-
 public class ActivityRelativeLineMonthly extends AppCompatActivity {
     String fromYear, fromMonth, toYear, toMonth;
     DatabaseHelper myDb;
@@ -45,7 +43,6 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
         Monthly();
 
         AnyChartView anyChartView = findViewById(R.id.chartLine);
-        //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
         Cartesian cartesian = AnyChart.line();
 
@@ -61,9 +58,9 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
-        cartesian.title("Trend of Sales of the Most Popular Products of ACME Corp.");
+        cartesian.title("Variation in monthly expenses from "+fromYear+"-"+fromMonth+" to "+toYear+"-"+toMonth);
 
-        cartesian.yAxis(0).title("Number of Bottles Sold (thousands)");
+        cartesian.yAxis(0).title("Money");
         cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
 
         List<DataEntry> seriesData = new ArrayList<>();
@@ -81,7 +78,7 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
         Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
 
         Line series1 = cartesian.line(series1Mapping);
-        series1.name("Brandy");
+        series1.name("Monthly");
         series1.hovered().markers().enabled(true);
         series1.hovered().markers()
                 .type(MarkerType.CIRCLE)
@@ -177,42 +174,5 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
             }
         }
     }
-
-    /*public void CategoryWise(){
-        Cursor cursor;
-        String items;
-        int firstNum = Integer.parseInt(fromYear+fromMonth);
-        int lastNum = Integer.parseInt(toYear+toMonth);
-        int currentNum;
-        int val;
-        for(int i = Integer.parseInt(fromYear); i<=Integer.parseInt(toYear); i++){
-            Log.d("Hi", "Tag1");
-            for(int j = 1; j<=12; j++){
-                currentNum = Integer.parseInt(Integer.toString(i)+MonthConvert(j));
-                if(currentNum == lastNum){
-                    cursor = myDb.viewRelativeDataCategoryWise(toMonth, toYear, selectedCategory);
-                    items = Integer.toString(i) + "-" + MonthConvert(j);
-                    if(cursor.getCount()!=0) {
-                        Log.d("E", "FIRE");
-                        cursor.moveToFirst();
-                        val = cursor.getInt(0);
-                        ChartEntry chartEntry = new ChartEntry(val, items);
-                        chartEntries.add(chartEntry);
-                    }
-                    break;
-                }
-                else if (currentNum>=firstNum && currentNum<lastNum){
-                    cursor = myDb.viewRelativeDataCategoryWise(MonthConvert(j), Integer.toString(i), selectedCategory);
-                    items = Integer.toString(i) + "-" + MonthConvert(j);
-                    if(cursor.getCount()!=0) {
-                        cursor.moveToFirst();
-                        ChartEntry chartEntry = new ChartEntry(cursor.getInt(0), items);
-                        chartEntries.add(chartEntry);
-                    }
-                }
-            }
-        }
-    }*/
-
 
 }

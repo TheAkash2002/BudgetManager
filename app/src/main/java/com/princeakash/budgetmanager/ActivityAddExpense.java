@@ -33,48 +33,6 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
     Calendar calendar;
     String date, dateMonth, dateYear;
 
-    private List<CategoryItem> categoryItems;
-
-    private BaseAdapter categoryAdapter = new BaseAdapter() {
-        @Override
-        public int getCount() {
-            return categoryItems.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return categoryItems.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            CategoryHolder holder = new CategoryHolder();
-            View categoryView = convertView;
-            if(categoryView==null){
-                categoryView = getLayoutInflater().inflate(R.layout.row_category_spinner, parent, false);
-                holder = new CategoryHolder();
-                holder.textViewCategory = categoryView.findViewById(R.id.textViewCat);
-                categoryView.setTag(holder);
-            }
-            else{
-                holder = (CategoryHolder) categoryView.getTag();
-            }
-
-            CategoryItem categoryItem = categoryItems.get(position);
-            holder.textViewCategory.setText(categoryItem.getCategoryName());
-
-            return categoryView;
-        }
-
-        class CategoryHolder{
-            private TextView textViewCategory;
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,29 +65,10 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
                 }
         );
 
-        /*spinnerCategory.setAdapter(categoryAdapter);
-        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ActivityAddExpense.this, categoryItems.get(position).getCategoryName(), LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-         */
         ArrayAdapter<CharSequence> adapterCats = ArrayAdapter.createFromResource(this, R.array.Cats, android.R.layout.simple_spinner_item);
         adapterCats.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCats);
         spinnerCategory.setOnItemSelectedListener(this);
-    }
-
-    private void populateCategoryList(){
-        categoryItems = new ArrayList<>();
-        //categoryItems = myDb.viewAllCategoryData();
     }
 
     @Override

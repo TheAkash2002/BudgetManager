@@ -61,9 +61,9 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
-        cartesian.title("Trend of Sales of the Most Popular Products of ACME Corp.");
+        cartesian.title("Variation in expenses on "+selectedCategory+" from "+fromYear+"-"+fromMonth+" to "+toYear+"-"+toMonth);
 
-        cartesian.yAxis(0).title("Number of Bottles Sold (thousands)");
+        cartesian.yAxis(0).title("Money");
         cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
 
         List<DataEntry> seriesData = new ArrayList<>();
@@ -80,7 +80,7 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
         Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
 
         Line series1 = cartesian.line(series1Mapping);
-        series1.name("Brandy");
+        series1.name(selectedCategory);
         series1.hovered().markers().enabled(true);
         series1.hovered().markers()
                 .type(MarkerType.CIRCLE)

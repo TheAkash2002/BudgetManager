@@ -15,7 +15,6 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
-//import com.anychart.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,6 @@ public class ActivityViewMonthlyExpensesBar extends AppCompatActivity {
         }
 
         AnyChartView anyChartView = findViewById(R.id.chartBar);
-        //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
         Cartesian cartesian = AnyChart.column();
 
@@ -55,17 +53,6 @@ public class ActivityViewMonthlyExpensesBar extends AppCompatActivity {
         for(int i=0; i<cursor.getCount(); i++){
             data.add(new ValueDataEntry(chartEntries.get(i).getStr(), chartEntries.get(i).getAmount()));
         }
-        /*data.add(new ValueDataEntry("Rouge", 80540));
-        data.add(new ValueDataEntry("Foundation", 94190));
-        data.add(new ValueDataEntry("Mascara", 102610));
-        data.add(new ValueDataEntry("Lip gloss", 110430));
-        data.add(new ValueDataEntry("Lipstick", 128000));
-        data.add(new ValueDataEntry("Nail polish", 143760));
-        data.add(new ValueDataEntry("Eyebrow pencil", 170670));
-        data.add(new ValueDataEntry("Eyeliner", 213210));
-        data.add(new ValueDataEntry("Eyeshadows", 249980));
-
-        */
 
         Column column = cartesian.column(data);
 

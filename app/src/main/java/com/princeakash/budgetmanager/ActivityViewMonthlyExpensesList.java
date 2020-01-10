@@ -36,10 +36,6 @@ public class ActivityViewMonthlyExpensesList extends AppCompatActivity {
 
         listItems = new ArrayList<>();
 
-        /*for(int i=0; i<=29; i++){
-            ListItem listItem = new ListItem("Heading "+ (i+1), "SubHeading " + (i+2), "SubHeading " + (i+3), "Dummy");
-            listItems.add(listItem);
-        }*/
         Cursor cursor = myDb.viewMonthlyExpenseData(eMonth, eYear);
         if(cursor.getCount()!=0) {
             cursor.moveToFirst();

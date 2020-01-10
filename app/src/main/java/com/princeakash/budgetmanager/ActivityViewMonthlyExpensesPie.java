@@ -15,7 +15,6 @@ import com.anychart.chart.common.listener.ListenersInterface;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
-//import com.anychart.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,6 @@ public class ActivityViewMonthlyExpensesPie extends AppCompatActivity {
 
 
         AnyChartView anyChartView = findViewById(R.id.chartPie);
-        //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
         Pie pie = AnyChart.pie();
 
@@ -63,12 +61,6 @@ public class ActivityViewMonthlyExpensesPie extends AppCompatActivity {
         for(int i=0; i<cursor.getCount(); i++){
             data.add(new ValueDataEntry(chartEntries.get(i).getStr(), chartEntries.get(i).getAmount()));
         }
-        /*data.add(new ValueDataEntry("Apples", 6371664));
-        data.add(new ValueDataEntry("Pears", 789622));
-        data.add(new ValueDataEntry("Bananas", 7216301));
-        data.add(new ValueDataEntry("Grapes", 1486621));
-        data.add(new ValueDataEntry("Oranges", 1200000));
-        */
 
         pie.data(data);
 
