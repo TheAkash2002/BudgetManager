@@ -86,7 +86,7 @@ public class ActivityAddTarget extends AppCompatActivity implements AdapterView.
                             }
                         }
                         else
-                            Toast.makeText(ActivityAddTarget.this, "Target already set for this month! Target data not inserted.", LENGTH_SHORT).show();
+                            Toast.makeText(ActivityAddTarget.this, "Target already set for this month, of Rs." + myDb.getTarget(targetMonth, targetYear), LENGTH_SHORT).show();
 
                     }
                 }

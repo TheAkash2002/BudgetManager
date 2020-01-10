@@ -51,7 +51,7 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
                     public void onClick(View v) {
                         boolean isInserted;
                         if(myDb.isTargetSet(dateMonth, dateYear)==true) {
-                            if(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + Integer.parseInt(editAmount.getText().toString()) < myDb.getTarget(dateMonth, dateYear)) {
+                            if(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + Integer.parseInt(editAmount.getText().toString()) <= myDb.getTarget(dateMonth, dateYear)) {
                                 isInserted = myDb.insertExpenseData(selectedCategory, editAmount.getText().toString());
                                 if (isInserted == true)
                                     Toast.makeText(ActivityAddExpense.this, "Data Inserted. You can spend Rs." + (myDb.getTarget(dateMonth, dateYear)-myDb.getTotalExpensesTillNow(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
