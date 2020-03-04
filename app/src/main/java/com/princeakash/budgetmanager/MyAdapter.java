@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         holder.textViewAmount.setText(listItem.getAmount());
         holder.textViewDate.setText(listItem.getDate());
         holder.textViewCategory.setText(listItem.getCategory());
+        holder.cardView.setCardBackgroundColor(setColor(position));
     }
 
     @Override
@@ -47,6 +49,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewCategory, textViewAmount, textViewDate;
+        public CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -54,7 +57,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             textViewAmount = itemView.findViewById(R.id.textViewAmount);
             textViewCategory = itemView.findViewById(R.id.textViewCategory);
             textViewDate = itemView.findViewById(R.id.textViewDate);
+            cardView = itemView.findViewById(R.id.cardView);
         }
 
+    }
+
+    public int setColor(int position){
+        switch(position%5){
+            case 0:
+                return 0xff42f55a;
+            case 1:
+                return 0xfff5ce42;
+            case 2:
+                return 0xfff58742;
+            case 3:
+                return 0xff42c8f5;
+            case 4:
+                return 0xffef42f5;
+        }
+        return 0xff000000;
     }
 }
