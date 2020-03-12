@@ -10,8 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ActivityViewMonthlyExpensesList extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     DatabaseHelper myDb;
     String eMonth, eYear;
@@ -28,7 +32,7 @@ public class ActivityViewMonthlyExpensesList extends AppCompatActivity {
         eYear = bundle.getString("TargetYear");
 
 
-        recyclerView = findViewById(R.id.recyclerview);
+        ButterKnife.bind(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

@@ -21,14 +21,22 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-    private FloatingActionButton floatingActionButton;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
+    @BindView(R.id.fab)
+    FloatingActionButton floatingActionButton;
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerView;
 
-    private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
     private List<ListItem> listItems;
@@ -40,19 +48,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
         myDb = new DatabaseHelper(this);
 
-        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.navigation_view);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

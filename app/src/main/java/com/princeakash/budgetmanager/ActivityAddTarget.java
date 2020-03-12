@@ -12,14 +12,26 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.Integer.parseInt;
 
 public class ActivityAddTarget extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    @BindView(R.id.editTarget)
     EditText editTarget;
-    Spinner spinnerMonth, spinnerYear;
+    @BindView(R.id.spinnerMonth)
+    Spinner spinnerMonth;
+    @BindView(R.id.spinnerYear)
+    Spinner spinnerYear;
+    @BindView(R.id.buttonAddTarget)
     Button btnAddTarget;
+
     DatabaseHelper myDb;
     String targetYear;
     String targetMonth;
@@ -29,10 +41,7 @@ public class ActivityAddTarget extends AppCompatActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_target);
-        editTarget = findViewById(R.id.editTarget);
-        spinnerMonth = findViewById(R.id.spinnerMonth);
-        spinnerYear = findViewById(R.id.spinnerYear);
-        btnAddTarget = findViewById(R.id.buttonAddTarget);
+        ButterKnife.bind(this);
 
         myDb = new DatabaseHelper(this);
 

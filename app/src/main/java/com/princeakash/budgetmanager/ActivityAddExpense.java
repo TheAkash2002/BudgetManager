@@ -20,14 +20,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static java.lang.Integer.parseInt;
 
 public class ActivityAddExpense extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    @BindView(R.id.spinnerCategory)
     Spinner spinnerCategory;
+    @BindView(R.id.buttonAddExpense)
     Button btnAddExpense;
+    @BindView(R.id.editAmount)
     EditText editAmount;
+
     String selectedCategory;
     DatabaseHelper myDb;
     Calendar calendar;
@@ -37,10 +44,10 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_expense);
+
+        ButterKnife.bind(this);
         myDb = new DatabaseHelper(this);
-        spinnerCategory = findViewById(R.id.spinnerCategory);
-        btnAddExpense = findViewById(R.id.buttonAddExpense);
-        editAmount = findViewById(R.id.editAmount);
+
         calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         date = simpleDateFormat.format(calendar.getTime());

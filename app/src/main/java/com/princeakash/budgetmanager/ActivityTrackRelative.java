@@ -8,16 +8,22 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+
 public class ActivityTrackRelative extends AppCompatActivity {
 
-    Button buttonCategorywise, buttonMonthly;
+    @BindView(R.id.buttonCategory)
+    Button buttonCategorywise;
+    @BindView(R.id.buttonMonthly)
+    Button buttonMonthly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.track_relative);
-        buttonCategorywise = findViewById(R.id.buttonCategory);
-        buttonMonthly = findViewById(R.id.buttonMonthly);
+        ButterKnife.bind(this);
         buttonCategorywise.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

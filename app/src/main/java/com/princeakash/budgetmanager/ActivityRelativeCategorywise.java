@@ -9,9 +9,23 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+
 public class ActivityRelativeCategorywise extends AppCompatActivity {
 
-    Spinner spinnerFromMonth, spinnerFromYear, spinnerToMonth, spinnerToYear, spinnerCategory;
+    @BindView(R.id.spinnerFromMonth)
+    Spinner spinnerFromMonth;
+    @BindView(R.id.spinnerFromYear)
+    Spinner spinnerFromYear;
+    @BindView(R.id.spinnerToMonth)
+    Spinner spinnerToMonth;
+    @BindView(R.id.spinnerToYear)
+    Spinner spinnerToYear;
+    @BindView(R.id.spinnerCategory)
+    Spinner spinnerCategory;
+    @BindView(R.id.buttonSeeData)
     Button btnSeeData;
     String fromYear, fromMonth, toYear, toMonth, selectedCategory;
 
@@ -78,12 +92,7 @@ public class ActivityRelativeCategorywise extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.relative_categorywise);
-        spinnerFromMonth =  findViewById(R.id.spinnerFromMonth);
-        spinnerFromYear = findViewById(R.id.spinnerFromYear);
-        spinnerToMonth = findViewById(R.id.spinnerToMonth);
-        spinnerToYear = findViewById(R.id.spinnerToYear);
-        spinnerCategory = findViewById(R.id.spinnerCategory);
-        btnSeeData = findViewById(R.id.buttonSeeData);
+        ButterKnife.bind(this);
 
         ArrayAdapter<CharSequence> adapterMonth = ArrayAdapter.createFromResource(this, R.array.Months, android.R.layout.simple_spinner_item);
         adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

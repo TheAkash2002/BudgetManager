@@ -23,10 +23,17 @@ import com.anychart.graphics.vector.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+
 public class ActivityRelativeLineCategorywise extends AppCompatActivity {
     String fromYear, fromMonth, toYear, toMonth, selectedCategory;
     DatabaseHelper myDb;
     List<ChartEntry> chartEntries;
+
+    @BindView(R.id.chartLine)
+    AnyChartView anyChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,7 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
 
         CategoryWise();
 
-        AnyChartView anyChartView = findViewById(R.id.chartLine);
+        ButterKnife.bind(this);
         //anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
         Cartesian cartesian = AnyChart.line();

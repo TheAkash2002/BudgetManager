@@ -19,18 +19,24 @@ import com.anychart.enums.LegendLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ActivityViewMonthlyExpensesPie extends AppCompatActivity {
 
     String eMonth, eYear;
     DatabaseHelper myDb;
     List<ChartEntry> chartEntries;
 
+    @BindView(R.id.chartPie)
+    AnyChartView anyChartView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_monthly_expenses_pie);
         myDb = new DatabaseHelper(this);
-
+        ButterKnife.bind(this);
         Bundle bundle = getIntent().getExtras();
         eMonth = bundle.getString("TargetMonth");
         eYear = bundle.getString("TargetYear");
@@ -44,9 +50,6 @@ public class ActivityViewMonthlyExpensesPie extends AppCompatActivity {
                 chartEntries.add(chartEntry);
             } while (cursor.moveToNext());
         }
-
-
-        AnyChartView anyChartView = findViewById(R.id.chartPie);
 
         Pie pie = AnyChart.pie();
 

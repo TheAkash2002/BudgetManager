@@ -22,10 +22,16 @@ import com.anychart.graphics.vector.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ActivityRelativeLineMonthly extends AppCompatActivity {
     String fromYear, fromMonth, toYear, toMonth;
     DatabaseHelper myDb;
     List<ChartEntry> chartEntries;
+
+    @BindView(R.id.chartLine)
+    AnyChartView anyChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,7 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
 
         Monthly();
 
-        AnyChartView anyChartView = findViewById(R.id.chartLine);
+        ButterKnife.bind(this);
 
         Cartesian cartesian = AnyChart.line();
 

@@ -11,11 +11,20 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+
 public class ActivityViewMonthlyExpenses extends AppCompatActivity {
 
+    @BindView(R.id.radioGroup)
     RadioGroup radioGroup;
+    @BindView(R.id.buttonViewData)
     Button btnViewData;
-    Spinner spinnerMonth, spinnerYear;
+    @BindView(R.id.spinnerMonth)
+    Spinner spinnerMonth;
+    @BindView(R.id.spinnerYear)
+    Spinner spinnerYear;
     RadioButton radioButton;
     String targetMonth, targetYear;
 
@@ -54,10 +63,7 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_monthly_expenses);
-        radioGroup = findViewById(R.id.radioGroup);
-        spinnerMonth = findViewById(R.id.spinnerMonth);
-        spinnerYear =  findViewById(R.id.spinnerYear);
-        btnViewData = findViewById(R.id.buttonViewData);
+        ButterKnife.bind(this);
 
         ArrayAdapter<CharSequence> adapterMonth = ArrayAdapter.createFromResource(this, R.array.Months, android.R.layout.simple_spinner_item);
         adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
