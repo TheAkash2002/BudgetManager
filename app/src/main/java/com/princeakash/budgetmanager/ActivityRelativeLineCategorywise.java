@@ -68,7 +68,7 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
-        cartesian.title("Variation in expenses on "+selectedCategory+" from "+fromYear+"-"+fromMonth+" to "+toYear+"-"+toMonth);
+        cartesian.title("Variation in expenses on " + selectedCategory + " from " + DateToString(fromYear, fromMonth) + " to " + DateToString(toYear, toMonth));
 
         cartesian.yAxis(0).title("Money");
         cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
@@ -77,10 +77,6 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
         for(int i=0; i<chartEntries.size(); i++){
             seriesData.add(new ValueDataEntry(chartEntries.get(i).getStr(), chartEntries.get(i).getAmount()));
         }
-        /*seriesData.add(new ValueDataEntry("1986", 3.6));
-        seriesData.add(new ValueDataEntry("1987", 6.6));
-        seriesData.add(new ValueDataEntry("1988", 0.6));
-        seriesData.add(new ValueDataEntry("1989", 12.6)); */
 
         Set set = Set.instantiate();
         set.data(seriesData);
@@ -106,7 +102,7 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
     }
 
     public String MonthConvert(int i){
-        String conv="01";
+        String conv="";
         switch(i){
             case 1:
                 conv = "01";
@@ -148,42 +144,6 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
         return conv;
     }
 
-    public void Monthly(){
-        Cursor cursor;
-        String items;
-        int firstNum = Integer.parseInt(fromYear+fromMonth);
-        int lastNum = Integer.parseInt(toYear+toMonth);
-        int currentNum;
-        int val;
-        for(int i = Integer.parseInt(fromYear); i<=Integer.parseInt(toYear); i++){
-            Log.d("Hi", "Tag1");
-            for(int j = 1; j<=12; j++){
-                currentNum = Integer.parseInt(Integer.toString(i)+MonthConvert(j));
-                if(currentNum == lastNum){
-                    cursor = myDb.viewRelativeDataMonthly(toMonth, toYear);
-                    items = Integer.toString(i) + "-" + MonthConvert(j);
-                    if(cursor.getCount()!=0) {
-                        Log.d("E", "FIRE");
-                        cursor.moveToFirst();
-                        val = cursor.getInt(0);
-                        ChartEntry chartEntry = new ChartEntry(val, items);
-                        chartEntries.add(chartEntry);
-                    }
-                    break;
-                }
-                else if (currentNum>=firstNum && currentNum<lastNum){
-                    cursor = myDb.viewRelativeDataMonthly(MonthConvert(j), Integer.toString(i));
-                    items = Integer.toString(i) + "-" + MonthConvert(j);
-                    if(cursor.getCount()!=0) {
-                        cursor.moveToFirst();
-                        ChartEntry chartEntry = new ChartEntry(cursor.getInt(0), items);
-                        chartEntries.add(chartEntry);
-                    }
-                }
-            }
-        }
-    }
-
     public void CategoryWise(){
         Cursor cursor;
         String items;
@@ -218,6 +178,49 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
                 }
             }
         }
+    }
+    public String DateToString(String dateYear, String dateMonth){
+        String res = "";
+        switch(dateMonth){
+            case "01":
+                res+="January ";
+                break;
+            case "02":
+                res+="February ";
+                break;
+            case "03":
+                res+="March ";
+                break;
+            case "04":
+                res+="April ";
+                break;
+            case "05":
+                res+="May ";
+                break;
+            case "06":
+                res+="June ";
+                break;
+            case "07":
+                res+="July ";
+                break;
+            case "08":
+                res+="August ";
+                break;
+            case "09":
+                res+="September ";
+                break;
+            case "10":
+                res+="October ";
+                break;
+            case "11":
+                res+="November ";
+                break;
+            case "12":
+                res+="December ";
+                break;
+        }
+        res+=dateYear;
+        return res;
     }
 
 

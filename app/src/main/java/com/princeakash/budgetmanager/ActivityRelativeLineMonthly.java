@@ -37,6 +37,7 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.relative_line);
+        ButterKnife.bind(this);
         myDb = new DatabaseHelper(this);
         chartEntries = new ArrayList<>();
 
@@ -47,8 +48,6 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
         toYear = bundle.getString("ToYear");
 
         Monthly();
-
-        ButterKnife.bind(this);
 
         Cartesian cartesian = AnyChart.line();
 
@@ -64,7 +63,7 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
-        cartesian.title("Variation in monthly expenses from "+fromYear+"-"+fromMonth+" to "+toYear+"-"+toMonth);
+        cartesian.title("Variation in monthly expenses from " + DateToString(fromYear, fromMonth) + " to " + DateToString(toYear, toMonth));
 
         cartesian.yAxis(0).title("Money");
         cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
@@ -73,11 +72,6 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
         for(int i=0; i<chartEntries.size(); i++){
             seriesData.add(new ValueDataEntry(chartEntries.get(i).getStr(), chartEntries.get(i).getAmount()));
         }
-
-        /*seriesData.add(new ValueDataEntry("1986", 3.6));
-        seriesData.add(new ValueDataEntry("1987", 6.6));
-        seriesData.add(new ValueDataEntry("1988", 0.6));
-        seriesData.add(new ValueDataEntry("1989", 12.6)); */
 
         Set set = Set.instantiate();
         set.data(seriesData);
@@ -179,6 +173,50 @@ public class ActivityRelativeLineMonthly extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public String DateToString(String dateYear, String dateMonth){
+        String res = "";
+        switch(dateMonth){
+            case "01":
+                res+="January ";
+                break;
+            case "02":
+                res+="February ";
+                break;
+            case "03":
+                res+="March ";
+                break;
+            case "04":
+                res+="April ";
+                break;
+            case "05":
+                res+="May ";
+                break;
+            case "06":
+                res+="June ";
+                break;
+            case "07":
+                res+="July ";
+                break;
+            case "08":
+                res+="August ";
+                break;
+            case "09":
+                res+="September ";
+                break;
+            case "10":
+                res+="October ";
+                break;
+            case "11":
+                res+="November ";
+                break;
+            case "12":
+                res+="December ";
+                break;
+        }
+        res+=dateYear;
+        return res;
     }
 
 }
