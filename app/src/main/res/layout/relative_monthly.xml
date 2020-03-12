@@ -1,124 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/textViewFrom"
-        android:text="From:"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear_layout1"
-        android:layout_below="@id/textViewFrom"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
-        <TextView
-            android:id="@+id/textViewFromMonth"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:text="Month:" />
-
-        <Spinner
-            android:id="@+id/spinnerFromMonth"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/linear_layout1"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
-        <TextView
-            android:id="@+id/textViewFromYear"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:text="Year:" />
-
-        <Spinner
-            android:id="@+id/spinnerFromYear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewTo"
-        android:layout_below="@id/linear_layout2"
-        android:text="To:"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear_layout3"
-        android:layout_below="@id/textViewTo"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
-        <TextView
-            android:id="@+id/textViewToMonth"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:text="Month:" />
-
-        <Spinner
-            android:id="@+id/spinnerToMonth"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/linear_layout3"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
-        <TextView
-            android:id="@+id/textViewToYear"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:text="Year:" />
-
-        <Spinner
-            android:id="@+id/spinnerToYear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonSeeData"
-        android:layout_below="@id/linear_layout4"
-        android:text="View Data"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/from"
+        app:layout_constraintTop_toTopOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="@id/guideline3" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/textViewFromMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/month"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/textViewFrom"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFrom" />
+
+    <Spinner
+        android:id="@+id/spinnerFromMonth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textViewFromMonth"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/barrier8"
+        app:layout_constraintTop_toTopOf="@id/textViewFromMonth" />
+
+    <TextView
+        android:id="@+id/textViewFromYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/year"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/textViewFromMonth"
+        app:layout_constraintTop_toBottomOf="@id/textViewFromMonth"/>
+
+    <Spinner
+        android:id="@+id/spinnerFromYear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textViewFromYear"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerFromMonth"
+        app:layout_constraintStart_toEndOf="@id/barrier8"
+        app:layout_constraintTop_toTopOf="@id/textViewFromYear" />
+
+    <TextView
+        android:id="@+id/textViewTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@id/textViewFromYear"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFromYear" />
+
+    <TextView
+        android:id="@+id/textViewToMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/month"
+        app:layout_constraintStart_toStartOf="@id/textViewTo"
+        app:layout_constraintTop_toBottomOf="@id/textViewTo" />
+
+    <Spinner
+        android:id="@+id/spinnerToMonth"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textViewToMonth"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/barrier8"
+        app:layout_constraintTop_toTopOf="@id/textViewToMonth" />
+
+    <TextView
+        android:id="@+id/textViewToYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/year"
+        app:layout_constraintStart_toStartOf="@id/textViewToMonth"
+        app:layout_constraintTop_toBottomOf="@id/textViewToMonth" />
+
+    <Spinner
+        android:id="@+id/spinnerToYear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textViewToYear"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerToMonth"
+        app:layout_constraintStart_toEndOf="@id/barrier8"
+        app:layout_constraintTop_toTopOf="@id/textViewToYear" />
+
+    <Button
+        android:id="@+id/buttonSeeData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_data"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toStartOf="@id/guideline3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="spinnerToYear,textViewFromYear,textViewFrom,spinnerFromMonth,spinnerFromYear,textViewToYear,textViewTo,spinnerToMonth,textViewFromMonth,textViewToMonth,guideline5"
+        tools:layout_editor_absoluteY="439dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="textViewFromMonth,textViewFromYear,textViewToMonth,textViewToYear"
+        tools:layout_editor_absoluteX="64dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

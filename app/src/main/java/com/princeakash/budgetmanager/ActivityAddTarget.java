@@ -82,11 +82,11 @@ public class ActivityAddTarget extends AppCompatActivity implements AdapterView.
                         if(myDb.isTargetSet(targetMonth, targetYear)==false) {
                             boolean isInserted = myDb.insertTargetData(editTarget.getText().toString(), targetMonth, targetYear);
                             if (isInserted == true) {
-                                Toast.makeText(ActivityAddTarget.this, "Target successfully set for " + targetYear + "-" + targetMonth, LENGTH_SHORT).show();
+                                Toast.makeText(ActivityAddTarget.this, "Target successfully set for " + DateToString(targetYear, targetMonth), LENGTH_SHORT).show();
                             }
                         }
                         else
-                            Toast.makeText(ActivityAddTarget.this, "Target already set for this month, of Rs." + myDb.getTarget(targetMonth, targetYear), LENGTH_SHORT).show();
+                            Toast.makeText(ActivityAddTarget.this, "Target already set for " + DateToString(targetYear, targetMonth) + ", of Rs." + myDb.getTarget(targetMonth, targetYear), LENGTH_SHORT).show();
 
                     }
                 }
@@ -101,5 +101,49 @@ public class ActivityAddTarget extends AppCompatActivity implements AdapterView.
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public String DateToString(String dateYear, String dateMonth){
+        String res = "";
+        switch(dateMonth){
+            case "01":
+                res+="January ";
+                break;
+            case "02":
+                res+="February ";
+                break;
+            case "03":
+                res+="March ";
+                break;
+            case "04":
+                res+="April ";
+                break;
+            case "05":
+                res+="May ";
+                break;
+            case "06":
+                res+="June ";
+                break;
+            case "07":
+                res+="July ";
+                break;
+            case "08":
+                res+="August ";
+                break;
+            case "09":
+                res+="September ";
+                break;
+            case "10":
+                res+="October ";
+                break;
+            case "11":
+                res+="November ";
+                break;
+            case "12":
+                res+="December ";
+                break;
+        }
+        res+=dateYear;
+        return res;
     }
 }

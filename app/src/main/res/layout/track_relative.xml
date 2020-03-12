@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/buttonCategory"
-        android:text="Track Relative Change in Category Over Months"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="30dp"/>
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonMonthly"
-        android:text="Track Relative Change in Total Monthly Spending"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"/>
+        android:text="Track Relative Change in Category Over Months"
+        app:layout_constraintBottom_toTopOf="@+id/buttonMonthly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/buttonMonthly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Track Relative Change in Total Monthly Spending"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCategory"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,8 +59,10 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
                             else
                                 Toast.makeText(ActivityAddExpense.this, "Overflow! You are going overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear) + Integer.parseInt(editAmount.getText().toString())-myDb.getTarget(dateMonth, dateYear)), LENGTH_SHORT).show();
                         }
-                        else
-                            Toast.makeText(ActivityAddExpense.this, "Please set a target for " + dateYear + "-" + dateMonth + " first.", LENGTH_SHORT).show();
+                        else {
+                            String datestr = DateToString(dateYear, dateMonth);
+                            Toast.makeText(ActivityAddExpense.this, "Please set a target for " + datestr + " first.", LENGTH_SHORT).show();
+                        }
                     }
                 }
         );
@@ -86,5 +88,49 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
         String[] dateBroken = date.split("-");
         dateYear = dateBroken[0];
         dateMonth = dateBroken[1];
+    }
+
+    public String DateToString(String dateYear, String dateMonth){
+        String res = "";
+        switch(dateMonth){
+            case "01":
+                res+="January ";
+                break;
+            case "02":
+                res+="February ";
+                break;
+            case "03":
+                res+="March ";
+                break;
+            case "04":
+                res+="April ";
+                break;
+            case "05":
+                res+="May ";
+                break;
+            case "06":
+                res+="June ";
+                break;
+            case "07":
+                res+="July ";
+                break;
+            case "08":
+                res+="August ";
+                break;
+            case "09":
+                res+="September ";
+                break;
+            case "10":
+                res+="October ";
+                break;
+            case "11":
+                res+="November ";
+                break;
+            case "12":
+                res+="December ";
+                break;
+        }
+        res+=dateYear;
+        return res;
     }
 }

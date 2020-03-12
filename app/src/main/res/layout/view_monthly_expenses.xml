@@ -1,91 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/textViewMonth"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linear_layout1"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:text="Month:"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/guideline3"
+        app:layout_constraintVertical_bias="0.2" />
 
-        <TextView
-            android:id="@+id/textViewMonth"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="Month:" />
-
-        <Spinner
-            android:id="@+id/spinnerMonth"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_layout2"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/spinnerMonth"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/linear_layout1"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        app:layout_constraintBottom_toBottomOf="@id/textViewMonth"
+        app:layout_constraintStart_toEndOf="@id/barrier5"
+        app:layout_constraintTop_toTopOf="@id/textViewMonth" />
 
-        <TextView
-            android:id="@+id/textViewYear"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="Year:" />
 
-        <Spinner
-            android:id="@+id/spinnerYear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textViewYear"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="Year:"
+        app:layout_constraintBottom_toTopOf="@id/radioGroup"
+        app:layout_constraintStart_toStartOf="@id/textViewMonth"
+        app:layout_constraintTop_toBottomOf="@id/textViewMonth" />
+
+    <Spinner
+        android:id="@+id/spinnerYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textViewYear"
+        app:layout_constraintStart_toEndOf="@id/barrier5"
+        app:layout_constraintTop_toTopOf="@id/textViewYear" />
 
     <RadioGroup
-        android:layout_width="wrap_content"
         android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linear_layout2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp">
+        app:layout_constraintBottom_toTopOf="@id/guideline5"
+        app:layout_constraintStart_toStartOf="@id/textViewYear"
+        app:layout_constraintTop_toBottomOf="@id/textViewYear">
 
         <RadioButton
             android:id="@+id/radioList"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="List" />
+
         <RadioButton
             android:id="@+id/radioBar"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Bar" />
+
         <RadioButton
             android:id="@+id/radioPie"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Pie"
-            android:checked="true"/>
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Pie" />
 
     </RadioGroup>
 
     <Button
+        android:id="@+id/buttonViewData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonViewData"
         android:layout_below="@id/radioGroup"
-        android:text="View"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintBottom_toTopOf="@id/guideline4"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        android:text="View" />
 
-</RelativeLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="textViewYear,radioGroup,textViewMonth"
+        tools:layout_editor_absoluteX="411dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="spinnerYear,textViewYear,radioGroup,spinnerMonth,guideline5,textViewMonth"
+        tools:layout_editor_absoluteY="731dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

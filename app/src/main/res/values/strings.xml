@@ -55,4 +55,9 @@
     </string-array>
     <string name="OpenDrawer">Open Navigation Drawer</string>
     <string name="CloseDrawer">Close Navigation Drawer</string>
+    <string name="to">To:</string>
+    <string name="from">From:</string>
+    <string name="month">Month:</string>
+    <string name="year">Year:</string>
+    <string name="view_data">View Data</string>
 </resources>
