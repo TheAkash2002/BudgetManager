@@ -1,6 +1,7 @@
 package com.princeakash.budgetmanager;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.princeakash.budgetmanager.DatabaseHelper.DateToString;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
@@ -34,7 +37,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ListItem listItem = listItems.get(position);
-
         holder.textViewAmount.setText(listItem.getAmount());
         holder.textViewDate.setText(listItem.getDate());
         holder.textViewCategory.setText(listItem.getCategory());

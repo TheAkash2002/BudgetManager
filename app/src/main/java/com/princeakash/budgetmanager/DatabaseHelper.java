@@ -197,10 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String endDate = year + "-" + month + "-31";
         Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ? AND "+ colExpenseDate + " BETWEEN ? AND ?", new String[] {"Target", startDate, endDate});
         res.moveToFirst();
-        if(res.getCount()==0)
-            return false;
-        else
-            return true;
+        return res.getCount() != 0;
     }
 
     public int getTarget(String month, String year){
@@ -221,5 +218,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res.getInt(0);
     }
 
+    public Cursor getAllTargets(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ?", new String[] {"Target"});
+        return res;
+    }
+
+    public static String DateToString(String dateYear, String dateMonth){
+        String res = "";
+        switch(dateMonth){
+            case "01":
+                res+="January ";
+                break;
+            case "02":
+                res+="February ";
+                break;
+            case "03":
+                res+="March ";
+                break;
+            case "04":
+                res+="April ";
+                break;
+            case "05":
+                res+="May ";
+                break;
+            case "06":
+                res+="June ";
+                break;
+            case "07":
+                res+="July ";
+                break;
+            case "08":
+                res+="August ";
+                break;
+            case "09":
+                res+="September ";
+                break;
+            case "10":
+                res+="October ";
+                break;
+            case "11":
+                res+="November ";
+                break;
+            case "12":
+                res+="December ";
+                break;
+        }
+        res+=dateYear;
+        return res;
+    }
 
 }

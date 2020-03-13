@@ -22,6 +22,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.princeakash.budgetmanager.DatabaseHelper.DateToString;
+
 public class ActivityViewMonthlyExpensesBar extends AppCompatActivity {
 
     String eMonth, eYear;
@@ -82,49 +84,5 @@ public class ActivityViewMonthlyExpensesBar extends AppCompatActivity {
         cartesian.yAxis(0).title("Money");
 
         anyChartView.setChart(cartesian);
-    }
-
-    public String DateToString(String dateYear, String dateMonth){
-        String res = "";
-        switch(dateMonth){
-            case "01":
-                res+="January ";
-                break;
-            case "02":
-                res+="February ";
-                break;
-            case "03":
-                res+="March ";
-                break;
-            case "04":
-                res+="April ";
-                break;
-            case "05":
-                res+="May ";
-                break;
-            case "06":
-                res+="June ";
-                break;
-            case "07":
-                res+="July ";
-                break;
-            case "08":
-                res+="August ";
-                break;
-            case "09":
-                res+="September ";
-                break;
-            case "10":
-                res+="October ";
-                break;
-            case "11":
-                res+="November ";
-                break;
-            case "12":
-                res+="December ";
-                break;
-        }
-        res+=dateYear;
-        return res;
     }
 }
