@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/budget_manager_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAddExpense"
+        <activity android:name=".ActivityViewTarget"></activity>
+        <activity
+            android:name=".ActivityAddExpense"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,26 +22,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityViewMonthlyExpenses"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ActivityViewMonthlyExpensesBar"
-            android:parentActivityName=".ActivityViewMonthlyExpenses"/>
-        <activity android:name=".ActivityViewMonthlyExpensesList"
-            android:parentActivityName=".ActivityViewMonthlyExpenses"/>
-        <activity android:name=".ActivityViewMonthlyExpensesPie"
-            android:parentActivityName=".ActivityViewMonthlyExpenses"/>
-        <activity android:name=".ActivityTrackRelative"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ActivityRelativeMonthly"
-            android:parentActivityName=".ActivityTrackRelative"/>
-        <activity android:name=".ActivityRelativeLineCategorywise"
-            android:parentActivityName=".ActivityRelativeCategorywise"/>
-        <activity android:name=".ActivityRelativeCategorywise"
-            android:parentActivityName=".ActivityTrackRelative"/>
-        <activity android:name=".ActivityAddTarget"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ActivityRelativeLineMonthly"
-            android:parentActivityName=".ActivityRelativeMonthly"/>
+        <activity
+            android:name=".ActivityViewMonthlyExpenses"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ActivityViewMonthlyExpensesBar"
+            android:parentActivityName=".ActivityViewMonthlyExpenses" />
+        <activity
+            android:name=".ActivityViewMonthlyExpensesList"
+            android:parentActivityName=".ActivityViewMonthlyExpenses" />
+        <activity
+            android:name=".ActivityViewMonthlyExpensesPie"
+            android:parentActivityName=".ActivityViewMonthlyExpenses" />
+        <activity
+            android:name=".ActivityTrackRelative"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ActivityRelativeMonthly"
+            android:parentActivityName=".ActivityTrackRelative" />
+        <activity
+            android:name=".ActivityRelativeLineCategorywise"
+            android:parentActivityName=".ActivityRelativeCategorywise" />
+        <activity
+            android:name=".ActivityRelativeCategorywise"
+            android:parentActivityName=".ActivityTrackRelative" />
+        <activity
+            android:name=".ActivityAddTarget"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ActivityRelativeLineMonthly"
+            android:parentActivityName=".ActivityRelativeMonthly" />
     </application>
 
 </manifest>

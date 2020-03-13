@@ -5,6 +5,9 @@
             android:id="@+id/addTarget"
             android:title="Add Target" />
         <item
+            android:id="@+id/viewTarget"
+            android:title="View Set Targets" />
+        <item
             android:id="@+id/viewMonthly"
             android:title="View Monthly Expenses" />
         <item
