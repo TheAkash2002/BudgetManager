@@ -33,12 +33,5 @@ public class ListItem {
         return date;
     }
 
-    public int getType(){
-        if(getCategory().equals("Target"))
-            return TARGET_TYPE;
-        else
-            return NON_TARGET_TYPE;
-    }
-
 }
 

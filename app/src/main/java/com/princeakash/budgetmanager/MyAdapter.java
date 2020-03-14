@@ -17,7 +17,7 @@ import java.util.List;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 import static com.princeakash.budgetmanager.DatabaseHelper.DateToString;
 
-public class MyAdapter extends RecyclerView.Adapter{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     List<ListItem> listItems = new ArrayList<>();
 
@@ -30,57 +30,27 @@ public class MyAdapter extends RecyclerView.Adapter{
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        switch (viewType){
-            case ListItem.TARGET_TYPE:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.target_item, parent, false);
-                return new MyTargetViewHolder(view);
-            case ListItem.NON_TARGET_TYPE:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-                return new MyViewHolder(view);
-        }
-        return null;
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ListItem listItem = listItems.get(position);
-        switch(listItem.getType()){
-            case ListItem.NON_TARGET_TYPE:
-                ((MyViewHolder) holder).textViewAmount.setText(listItem.getAmount());
-                ((MyViewHolder) holder).textViewDate.setText(listItem.getDate());
-                ((MyViewHolder) holder).textViewCategory.setText(listItem.getCategory());
-                ((MyViewHolder) holder).cardView.setCardBackgroundColor(setColor(position));
-                break;
-            case ListItem.TARGET_TYPE:
-                ((MyTargetViewHolder) holder).textViewAmount.setText(listItem.getAmount());
-                String[] splitText = listItem.getDate().split("-");
-                ((MyTargetViewHolder) holder).textViewDate.setText(DatabaseHelper.DateToString(splitText[0], splitText[1]));
-                ((MyTargetViewHolder) holder).cardView.setCardBackgroundColor(setColor(position));
-                break;
-        }
-    }
-
-    /*@Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         ListItem listItem = listItems.get(position);
-        holder.textViewAmount.setText(listItem.getAmount());
-        holder.textViewDate.setText(listItem.getDate());
-        holder.textViewCategory.setText(listItem.getCategory());
-        holder.cardView.setCardBackgroundColor(setColor(position));
-    }*/
+        String[] splitDate = listItem.getDate().split("-");
+        if(!listItem.getCategory().equals("Target")) {
+            String date = splitDate[2] + " " + DatabaseHelper.DateToString(splitDate[0], splitDate[1]);
+            holder.textViewDate.setText(date);
+            holder.textViewCategory.setText(listItem.getCategory());
 
-    @Override
-    public int getItemViewType(int position) {
-        switch(listItems.get(position).getType()){
-            case ListItem.TARGET_TYPE:
-                return ListItem.TARGET_TYPE;
-            case ListItem.NON_TARGET_TYPE:
-                return ListItem.NON_TARGET_TYPE;
-            default:
-                return -1;
         }
+        else{
+            holder.textViewDate.setText(DatabaseHelper.DateToString(splitDate[0], splitDate[1]));
+            holder.textViewCategory.setVisibility(View.GONE);
+        }
+        holder.textViewAmount.setText(listItem.getAmount());
+        holder.cardView.setCardBackgroundColor(setColor(position));
     }
 
     @Override
@@ -102,19 +72,6 @@ public class MyAdapter extends RecyclerView.Adapter{
             cardView = itemView.findViewById(R.id.cardView);
         }
 
-    }
-
-    public class MyTargetViewHolder extends RecyclerView.ViewHolder{
-        public TextView textViewAmount, textViewDate;
-        public CardView cardView;
-
-        public MyTargetViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            textViewAmount = itemView.findViewById(R.id.textViewAmount);
-            textViewDate = itemView.findViewById(R.id.textViewDate);
-            cardView = itemView.findViewById(R.id.cardView);
-        }
     }
 
     public int setColor(int position){
