@@ -7,6 +7,9 @@ public class ListItem {
     private String id;
     private String date;
 
+    public static final int TARGET_TYPE = 0;
+    public static final int NON_TARGET_TYPE = 1;
+
     public ListItem(String id, String amount, String category, String date) {
         this.category = category;
         this.amount = amount;
@@ -28,6 +31,13 @@ public class ListItem {
 
     public String getDate(){
         return date;
+    }
+
+    public int getType(){
+        if(getCategory().equals("Target"))
+            return TARGET_TYPE;
+        else
+            return NON_TARGET_TYPE;
     }
 
 }

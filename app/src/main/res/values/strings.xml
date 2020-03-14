@@ -61,4 +61,6 @@
     <string name="year">Year:</string>
     <string name="view_data">View Data</string>
     <string name="tap_to_edit">Tap on an item to edit it.</string>
+    <string name="date">Date</string>
+    <string name="amount">Amount</string>
 </resources>
