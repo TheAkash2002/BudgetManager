@@ -171,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor viewAllCategoryData(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + categoryTable, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + categoryTable + " WHERE " + colCategoryName + "<> ?", new String[]{"Target"});
         return res;
     }
 
