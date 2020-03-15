@@ -79,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
                         intent = new Intent(MainActivity.this, ActivityViewTarget.class);
                         startActivity(intent);
                         break;
+                    case R.id.viewAllCat:
+                        intent = new Intent(MainActivity.this, ActivityViewAllCategories.class);
+                        startActivity(intent);
+                        break;
                     case R.id.viewMonthly:
                         intent = new Intent(MainActivity.this, ActivityViewMonthlyExpenses.class);
                         startActivity(intent);

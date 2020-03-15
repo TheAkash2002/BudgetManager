@@ -63,4 +63,5 @@
     <string name="tap_to_edit">Tap on an item to edit it.</string>
     <string name="date">Date</string>
     <string name="amount">Amount</string>
+    <string name="tap_to_delete">Tap on an item to delete it.</string>
 </resources>

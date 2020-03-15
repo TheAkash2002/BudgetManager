@@ -8,41 +8,46 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ActivityViewTarget extends AppCompatActivity {
+public class ActivityViewAllCategories extends AppCompatActivity {
 
     @BindView(R.id.recyclerViewTarget)
     RecyclerView recyclerView;
+
     RecyclerView.Adapter adapter;
     DatabaseHelper myDb;
-    List<ListItem> listItems;
+    List<String> categoryItems;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_target);
+        setContentView(R.layout.view_all_categories);
         ButterKnife.bind(this);
-
         myDb = new DatabaseHelper(this);
+        categoryItems = new ArrayList<>();
+
+        getCategoryItems();
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        listItems = new ArrayList<>();
-        Cursor cursor = myDb.getAllTargets();
-        if(cursor.getCount()!=0) {
-            cursor.moveToFirst();
-            do {
-                ListItem listItem = new ListItem(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
-                listItems.add(listItem);
-            } while (cursor.moveToNext());
-        }
-        adapter = new MyAdapter(listItems, this);
-
+        adapter = new CategoryAdapter(categoryItems, this);
         recyclerView.setAdapter(adapter);
     }
 
+    public void getCategoryItems(){
+        Cursor cursor = myDb.viewAllCategoryData();
+        if(cursor.getCount()!=0){
+            cursor.moveToFirst();
+            do{
+                String categoryItem = cursor.getString(1);
+                categoryItems.add(categoryItem);
+            } while(cursor.moveToNext());
+        }
+    }
 }
