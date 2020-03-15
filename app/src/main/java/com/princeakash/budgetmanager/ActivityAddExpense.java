@@ -1,6 +1,8 @@
 package com.princeakash.budgetmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -29,7 +31,7 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static com.princeakash.budgetmanager.DatabaseHelper.DateToString;
 import static java.lang.Integer.parseInt;
 
-public class ActivityAddExpense extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ActivityAddExpense extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AddCategoryDialogFragment.AddCategoryDialogListener {
 
     @BindView(R.id.spinnerCategory)
     Spinner spinnerCategory;
@@ -37,6 +39,8 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
     Button btnAddExpense;
     @BindView(R.id.editAmount)
     EditText editAmount;
+    @BindView(R.id.buttonAddCategory)
+    Button btnAddCategory;
 
     String selectedCategory;
     DatabaseHelper myDb;
@@ -79,6 +83,47 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
         );
 
         //ArrayAdapter<CharSequence> adapterCats = ArrayAdapter.createFromResource(this, R.array.Cats, android.R.layout.simple_spinner_item);
+
+        PopulateSpinner();
+        btnAddCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new AddCategoryDialogFragment();
+                newFragment.show(getSupportFragmentManager(), "AddCategoryDialogFragment");
+            }
+        });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        selectedCategory = text;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        selectedCategory = "Books and Stationery";
+    }
+
+    public void FilterMonthAndYear(){
+        String[] dateBroken = date.split("-");
+        dateYear = dateBroken[0];
+        dateMonth = dateBroken[1];
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String categoryName) {
+        boolean isInserted = myDb.insertCategory(categoryName);
+        if(isInserted){
+            Toast.makeText(this, "Inserted new category successfully.", LENGTH_SHORT).show();
+            PopulateSpinner();
+        }
+        else{
+            Toast.makeText(this, "Failed to insert new category.", LENGTH_SHORT).show();
+        }
+    }
+
+    public void PopulateSpinner(){
         Cursor cursor = myDb.viewAllCategoryData();
         final ArrayList<String> categories = new ArrayList<String>();
         if(cursor.getCount()!=0){
@@ -126,25 +171,7 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
                 public TextView textViewCategory;
             }
         };
-        //adapterCats.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCats);
         spinnerCategory.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        selectedCategory = text;
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        selectedCategory = "Books and Stationery";
-    }
-
-    public void FilterMonthAndYear(){
-        String[] dateBroken = date.split("-");
-        dateYear = dateBroken[0];
-        dateMonth = dateBroken[1];
     }
 }
