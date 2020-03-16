@@ -62,7 +62,7 @@ public class ActivityViewTarget extends AppCompatActivity implements MyAdapter.M
 
     @Override
     public void onItemClickListener(int position) {
-        DialogFragment newFragment = new EditTargetDialogFragment(position);
+        DialogFragment newFragment = new EditTargetDialogFragment(position, listItems.get(position).getAmount());
         newFragment.show(getSupportFragmentManager(), "EditTargetDialogFragment");
     }
 
@@ -72,7 +72,7 @@ public class ActivityViewTarget extends AppCompatActivity implements MyAdapter.M
         final String wordDate = DatabaseHelper.DateToString(splitDate[0], splitDate[1]);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Delete Target")
-                .setMessage("Are you sure you want to delete the set target for " + wordDate + "?")
+                .setMessage("Are you sure you want to delete the set target for " + wordDate + "? You cannot undo this later.")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

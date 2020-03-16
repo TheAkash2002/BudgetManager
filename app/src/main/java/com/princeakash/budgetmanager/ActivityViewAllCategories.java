@@ -69,7 +69,7 @@ public class ActivityViewAllCategories extends AppCompatActivity implements Cate
     public void onCategoryLongClick(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirm Delete")
-                .setMessage("Are you sure you want to delete " + categoryItems.get(position) + "?")
+                .setMessage("Are you sure you want to delete " + categoryItems.get(position) + "? You cannot undo this later.")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -106,6 +107,10 @@ public class ActivityRelativeMonthly extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         TextToNum();
+                        if(Integer.parseInt(toYear+toMonth)<=Integer.parseInt(fromYear+fromMonth)){
+                            Toast.makeText(ActivityRelativeMonthly.this, "Please select valid 'From' and 'To' fields.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         Intent intent = new Intent(ActivityRelativeMonthly.this, ActivityRelativeLineMonthly.class);
                         intent.putExtra("FromMonth", fromMonth);
                         intent.putExtra("FromYear", fromYear);

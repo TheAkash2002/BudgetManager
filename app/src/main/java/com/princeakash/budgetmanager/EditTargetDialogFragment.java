@@ -19,11 +19,13 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class EditTargetDialogFragment extends DialogFragment {
     EditText editTextNewTarget;
+    String oldTarget;
     EditTargetDialogListener editTargetDialogListener;
     int callerPosition;
 
-    public EditTargetDialogFragment(int position){
+    public EditTargetDialogFragment(int position, String oldTarget){
         this.callerPosition = position;
+        this.oldTarget = oldTarget;
     }
 
     public interface EditTargetDialogListener{
@@ -47,10 +49,10 @@ public class EditTargetDialogFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.add_new_category_layout, null);
         editTextNewTarget = (EditText) view.findViewById(R.id.editTextCategoryName);
-        editTextNewTarget.setHint("New Target");
+        editTextNewTarget.setText(oldTarget);
 
         builder.setView(view)
-                .setTitle("Change Target")
+                .setTitle("Update Target")
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

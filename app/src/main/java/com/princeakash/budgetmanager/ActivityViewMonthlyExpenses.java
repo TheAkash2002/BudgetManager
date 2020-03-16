@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,7 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
     Spinner spinnerYear;
     RadioButton radioButton;
     String targetMonth, targetYear;
+    DatabaseHelper myDb;
 
     public void TextToNum(){
         String tMonth = spinnerMonth.getSelectedItem().toString();
@@ -64,6 +66,7 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_monthly_expenses);
         ButterKnife.bind(this);
+        myDb = new DatabaseHelper(this);
 
         ArrayAdapter<CharSequence> adapterMonth = ArrayAdapter.createFromResource(this, R.array.Months, android.R.layout.simple_spinner_item);
         adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -78,9 +81,14 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent;
+                        boolean isFound = true;
                         switch(radioGroup.getCheckedRadioButtonId()){
                             case R.id.radioList:
                                 TextToNum();
+                                if(myDb.viewMonthlyExpenseData(targetMonth, targetYear).getCount()==0){
+                                    isFound = false;
+                                    break;
+                                }
                                 intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesList.class);
                                 intent.putExtra("TargetYear", targetYear);
                                 intent.putExtra("TargetMonth", targetMonth);
@@ -88,6 +96,10 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
                                 break;
                             case R.id.radioBar:
                                 TextToNum();
+                                if(myDb.viewMonthlyExpenseData(targetMonth, targetYear).getCount()==0){
+                                    isFound = false;
+                                    break;
+                                }
                                 intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesBar.class);
                                 intent.putExtra("TargetYear", targetYear);
                                 intent.putExtra("TargetMonth", targetMonth);
@@ -95,13 +107,18 @@ public class ActivityViewMonthlyExpenses extends AppCompatActivity {
                                 break;
                             case R.id.radioPie:
                                 TextToNum();
+                                if(myDb.viewMonthlyExpenseData(targetMonth, targetYear).getCount()==0){
+                                    isFound = false;
+                                    break;
+                                }
                                 intent = new Intent(ActivityViewMonthlyExpenses.this, ActivityViewMonthlyExpensesPie.class);
                                 intent.putExtra("TargetYear", targetYear);
                                 intent.putExtra("TargetMonth", targetMonth);
                                 startActivity(intent);
                                 break;
                         }
-
+                        if(!isFound)
+                        Toast.makeText(ActivityViewMonthlyExpenses.this, "No data found for given query.", Toast.LENGTH_SHORT).show();
                     }
                 }
         );

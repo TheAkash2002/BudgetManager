@@ -97,7 +97,8 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        selectedCategory = "Books and Stationery";
+        if(parent.getCount()==0)
+            selectedCategory = "Uncategorised";
     }
 
     public void FilterMonthAndYear(){

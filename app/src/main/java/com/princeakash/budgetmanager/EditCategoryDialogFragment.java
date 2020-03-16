@@ -46,6 +46,7 @@ public class EditCategoryDialogFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.add_new_category_layout, null);
         editTextCategory = view.findViewById(R.id.editTextCategoryName);
+        editTextCategory.setText(oldCategoryName);
         builder.setView(view)
                 .setTitle("Update Category")
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
