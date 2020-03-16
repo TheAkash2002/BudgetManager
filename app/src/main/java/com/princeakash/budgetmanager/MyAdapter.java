@@ -20,10 +20,12 @@ import static com.princeakash.budgetmanager.DatabaseHelper.DateToString;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     List<ListItem> listItems = new ArrayList<>();
+    MyItemListener myItemListener;
 
-    public MyAdapter(List<ListItem> listItems, Context context) {
+    public MyAdapter(List<ListItem> listItems, Context context, MyItemListener listener) {
         this.listItems = listItems;
         this.context = context;
+        this.myItemListener = listener;
     }
 
     private Context context;
@@ -32,7 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, myItemListener);
     }
 
     @Override
@@ -58,20 +60,35 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         return listItems.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         public TextView textViewCategory, textViewAmount, textViewDate;
         public CardView cardView;
+        public MyItemListener myItemListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, MyItemListener listener) {
             super(itemView);
 
             textViewAmount = itemView.findViewById(R.id.textViewAmount);
             textViewCategory = itemView.findViewById(R.id.textViewCategory);
             textViewDate = itemView.findViewById(R.id.textViewDate);
             cardView = itemView.findViewById(R.id.cardView);
+            this.myItemListener = listener;
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            myItemListener.onItemClickListener(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            myItemListener.onItemLongClickListener(getAdapterPosition());
+            return false;
+        }
     }
 
     public static int setColor(int position){
@@ -88,5 +105,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
                 return 0xffef42f5;
         }
         return 0xff000000;
+    }
+
+    public interface MyItemListener{
+        void onItemClickListener(int position);
+        void onItemLongClickListener(int position);
     }
 }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewAmount"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="Amount:"
+        app:layout_constraintBottom_toTopOf="@+id/textViewCategory"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
+
+    <EditText
+        android:id="@+id/editAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAmount"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerCategory"
+        app:layout_constraintStart_toEndOf="@id/barrier4"
+        app:layout_constraintTop_toTopOf="@+id/textViewAmount" />
+
+    <TextView
+        android:id="@+id/textViewCategory"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="Category:"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/textViewAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAmount" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCategory"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toEndOf="@id/barrier4"
+        app:layout_constraintTop_toTopOf="@id/textViewCategory" />
+
+    <Button
+        android:id="@+id/buttonUpdateExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Expense"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@id/barrier3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAmount"
+        app:layout_constraintGuide_percent="0.05"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.39"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCategory" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="spinnerCategory,textViewCategory,textViewAmount,editAmount"
+        tools:layout_editor_absoluteY="731dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="textViewCategory,textViewAmount"
+        tools:layout_editor_absoluteX="411dp" />
+
+    <Button
+        android:id="@+id/buttonAddCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Category"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategory"
+        app:layout_constraintEnd_toEndOf="@id/spinnerCategory"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

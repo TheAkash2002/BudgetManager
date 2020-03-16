@@ -11,9 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +19,7 @@ import android.widget.TextView;
 public class AddCategoryDialogFragment extends DialogFragment {
     private EditText editTextCategory;
 
-    public interface AddCategoryDialogListener{
+    public interface AddCategoryDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog, String categoryName);
     }
 

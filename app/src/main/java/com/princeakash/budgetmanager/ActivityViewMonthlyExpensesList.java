@@ -13,7 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ActivityViewMonthlyExpensesList extends AppCompatActivity {
+public class ActivityViewMonthlyExpensesList extends AppCompatActivity implements MyAdapter.MyItemListener {
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -49,8 +49,18 @@ public class ActivityViewMonthlyExpensesList extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
 
-        adapter = new MyAdapter(listItems, this);
+        adapter = new MyAdapter(listItems, getApplicationContext(), this);
 
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+
     }
 }

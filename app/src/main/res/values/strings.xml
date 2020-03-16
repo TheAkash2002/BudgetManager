@@ -60,8 +60,7 @@
     <string name="month">Month:</string>
     <string name="year">Year:</string>
     <string name="view_data">View Data</string>
-    <string name="tap_to_edit">Tap on an item to edit it.</string>
+    <string name="tap_to_edit">Tap on an item to update it. Long press on an item to delete it.</string>
     <string name="date">Date</string>
     <string name="amount">Amount</string>
-    <string name="tap_to_delete">Tap on an item to delete it.</string>
 </resources>

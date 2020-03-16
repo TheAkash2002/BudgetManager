@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyAdapter.MyItemListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -111,8 +111,18 @@ public class MainActivity extends AppCompatActivity {
                 listItems.add(listItem);
             } while (cursor.moveToNext());
         }
-        adapter = new MyAdapter(listItems, this);
+        adapter = new MyAdapter(listItems, getApplicationContext(), this);
 
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+
     }
 }
