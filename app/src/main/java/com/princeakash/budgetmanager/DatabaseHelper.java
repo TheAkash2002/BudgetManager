@@ -198,16 +198,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    /*
-    public Integer deleteExpenseData(int id){
+    public boolean updateExpenseData(String id, String newCategory, String newAmount, String date){
         SQLiteDatabase db = this.getWritableDatabase();
-        Integer id2 = id;
-        return db.delete(expenseTable, "ID = ?", new String[] {id2.toString()});
-    }
-    */
-
-    public void updateExpenseData(){
-
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(colExpenseDate, date);
+        contentValues.put(colExpenseCategory, newCategory);
+        contentValues.put(colExpenseAmount, newAmount);
+        long update = db.update(expenseTable, contentValues, colExpenseID + " = ?", new String[]{id});
+        return !(update==-1);
     }
 
     public Cursor viewAllExpenseData(){
@@ -256,6 +254,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("SELECT SUM(" + colExpenseAmount + ") FROM " + expenseTable + " WHERE " + colExpenseCategory + " <> ? AND "+ colExpenseDate + " BETWEEN ? AND ?", new String[] {"Target", startDate, endDate});
         res.moveToFirst();
         return res.getInt(0);
+    }
+
+    public boolean deleteExpenseData(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long delete = db.delete(expenseTable, colExpenseID + " = ?", new String[]{id});
+        return !(delete==-1);
     }
 
     public static String DateToString(String dateYear, String dateMonth){

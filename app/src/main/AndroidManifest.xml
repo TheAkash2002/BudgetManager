@@ -12,6 +12,8 @@
         <activity
             android:name=".ActivityViewAllCategories"
             android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ActivityEditExpense"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ActivityViewTarget"
             android:parentActivityName=".MainActivity" />

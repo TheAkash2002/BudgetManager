@@ -2,12 +2,14 @@ package com.princeakash.budgetmanager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -102,6 +105,12 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.MyItemL
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        getExpenseItems();
+        populateRecyclerView();
+
+    }
+
+    private void getExpenseItems() {
         listItems = new ArrayList<>();
         Cursor cursor = myDb.viewAllExpenseData();
         if(cursor.getCount()!=0) {
@@ -111,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.MyItemL
                 listItems.add(listItem);
             } while (cursor.moveToNext());
         }
+    }
+
+    private void populateRecyclerView(){
         adapter = new MyAdapter(listItems, getApplicationContext(), this);
 
         recyclerView.setAdapter(adapter);
@@ -118,11 +130,37 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.MyItemL
 
     @Override
     public void onItemClickListener(int position) {
-
+        Intent intent = new Intent(MainActivity.this, ActivityEditExpense.class);
+        intent.putExtra("expenseID", listItems.get(position).getId());
+        intent.putExtra("expenseDate", listItems.get(position).getDate());
+        intent.putExtra("expenseAmount", listItems.get(position).getAmount());
+        startActivity(intent);
     }
 
     @Override
-    public void onItemLongClickListener(int position) {
+    public void onItemLongClickListener(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete Expense")
+                .setMessage("Are you sure you want to delete this expense? You cannot undo this later.")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean isDeleted = myDb.deleteExpenseData(listItems.get(position).getId());
+                        if(isDeleted){
+                            Toast.makeText(MainActivity.this, "Expense deleted successfully.", Toast.LENGTH_SHORT).show();
+                            getExpenseItems();
+                            populateRecyclerView();
+                        }
+                        else
+                            Toast.makeText(MainActivity.this, "Failed to delete expense.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+        builder.create().show();
     }
 }
