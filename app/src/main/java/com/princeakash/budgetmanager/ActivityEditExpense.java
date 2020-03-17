@@ -1,5 +1,6 @@
 package com.princeakash.budgetmanager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,10 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -65,17 +66,44 @@ public class ActivityEditExpense extends AppCompatActivity implements AdapterVie
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(!inputValidations())
+                            return;
                         boolean isUpdated;
                         if(myDb.isTargetSet(dateMonth, dateYear)==true) {
                             if(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString()) <= myDb.getTarget(dateMonth, dateYear)) {
-                                isUpdated = myDb.updateExpenseData(id, selectedCategory, editAmount.getText().toString(), date);
-                                if (isUpdated) {
-                                    Toast.makeText(ActivityEditExpense.this, "Data Updated. You could spend Rs." + (myDb.getTarget(dateMonth, dateYear) - myDb.getTotalExpensesTillNow(dateMonth, dateYear)) + " in " + DatabaseHelper.DateToString(dateYear, dateMonth), LENGTH_SHORT).show();
-                                    Intent intent = new Intent(ActivityEditExpense.this, MainActivity.class);
-                                    startActivity(intent);
+                                if((myDb.getTotalExpensesTillNow(dateMonth, dateYear) < myDb.getTarget(dateMonth, dateYear))&&(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString()) > myDb.getTarget(dateMonth, dateYear))){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                                    builder.setTitle("Confirm Override")
+                                            .setMessage("Adding this expense will cause your target to be overridden. Are you sure you want to continue?")
+                                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    if (myDb.insertExpenseData(selectedCategory, editAmount.getText().toString()))
+                                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                                    else
+                                                        Toast.makeText(ActivityEditExpense.this, "Failed to inset data.", LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            });
+                                    builder.create().show();
                                 }
-                                else
-                                    Toast.makeText(ActivityEditExpense.this, "Failed to update data.", LENGTH_SHORT).show();
+                                else if (myDb.getTotalExpensesTillNow(dateMonth, dateYear) > myDb.getTarget(dateMonth, dateYear)){
+                                    isUpdated = myDb.insertExpenseData(selectedCategory, editAmount.getText().toString());
+                                    if (isUpdated == true)
+                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                    else
+                                        Toast.makeText(ActivityEditExpense.this, "Failed to inset data.", LENGTH_SHORT).show();
+                                }
+                                else{
+                                    isUpdated = myDb.insertExpenseData(selectedCategory, editAmount.getText().toString());
+                                    if (isUpdated == true)
+                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You can spend Rs." + (myDb.getTarget(dateMonth, dateYear)-myDb.getTotalExpensesTillNow(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                }
                             }
                             else
                                 Toast.makeText(ActivityEditExpense.this, "Overflow! You are going overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString())-myDb.getTarget(dateMonth, dateYear)) + " for " + DatabaseHelper.DateToString(dateYear, dateMonth), LENGTH_SHORT).show();
@@ -185,5 +213,19 @@ public class ActivityEditExpense extends AppCompatActivity implements AdapterVie
         };
         spinnerCategory.setAdapter(adapterCats);
         spinnerCategory.setOnItemSelectedListener(this);
+    }
+
+    private boolean inputValidations() {
+        if(editAmount.getText().toString().equals("")||(Integer.parseInt(editAmount.getText().toString())<=0)){
+            editAmount.setError("Enter a positive amount.");
+            editAmount.requestFocus();
+            return false;
+        }
+        if(adapterCats.getCount()==0){
+            Toast.makeText(this, "Add a category first.", LENGTH_SHORT).show();
+            spinnerCategory.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

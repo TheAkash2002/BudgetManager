@@ -1,8 +1,10 @@
 package com.princeakash.budgetmanager;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -59,15 +61,43 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(!inputValidations())
+                            return;
                         boolean isInserted;
                         if(myDb.isTargetSet(dateMonth, dateYear)==true) {
-                            if(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString()) <= myDb.getTarget(dateMonth, dateYear)) {
+                            if((myDb.getTotalExpensesTillNow(dateMonth, dateYear) < myDb.getTarget(dateMonth, dateYear))&&(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString()) > myDb.getTarget(dateMonth, dateYear))){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                                builder.setTitle("Confirm Override")
+                                        .setMessage("Adding this expense will cause your target to be overridden. Are you sure you want to continue?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                if (myDb.insertExpenseData(selectedCategory, editAmount.getText().toString()))
+                                                    Toast.makeText(ActivityAddExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                                else
+                                                    Toast.makeText(ActivityAddExpense.this, "Failed to inset data.", LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+                                builder.create().show();
+                            }
+                            else if (myDb.getTotalExpensesTillNow(dateMonth, dateYear) > myDb.getTarget(dateMonth, dateYear)){
+                                isInserted = myDb.insertExpenseData(selectedCategory, editAmount.getText().toString());
+                                if (isInserted == true)
+                                    Toast.makeText(ActivityAddExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(ActivityAddExpense.this, "Failed to inset data.", LENGTH_SHORT).show();
+                            }
+                            else{
                                 isInserted = myDb.insertExpenseData(selectedCategory, editAmount.getText().toString());
                                 if (isInserted == true)
                                     Toast.makeText(ActivityAddExpense.this, "Data Inserted. You can spend Rs." + (myDb.getTarget(dateMonth, dateYear)-myDb.getTotalExpensesTillNow(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
                             }
-                            else
-                                Toast.makeText(ActivityAddExpense.this, "Overflow! You are going overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString())-myDb.getTarget(dateMonth, dateYear)), LENGTH_SHORT).show();
                         }
                         else {
                             String datestr = DateToString(dateYear, dateMonth);
@@ -87,6 +117,20 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
                 newFragment.show(getSupportFragmentManager(), "AddCategoryDialogFragment");
             }
         });
+    }
+
+    private boolean inputValidations() {
+        if(editAmount.getText().toString().equals("")||(Integer.parseInt(editAmount.getText().toString())<=0)){
+            editAmount.setError("Enter a positive amount.");
+            editAmount.requestFocus();
+            return false;
+        }
+        if(adapterCats.getCount()==0){
+            Toast.makeText(this, "Add a category first.", LENGTH_SHORT).show();
+            spinnerCategory.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -12,15 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.lang.reflect.Array;
-
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.princeakash.budgetmanager.DatabaseHelper.DateToString;
-import static java.lang.Integer.parseInt;
 
 public class ActivityAddTarget extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

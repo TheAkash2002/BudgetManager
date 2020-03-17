@@ -9,12 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-
-import static java.lang.Integer.parseInt;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -36,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, dbName, null, 33);
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + expenseTable + " ("
