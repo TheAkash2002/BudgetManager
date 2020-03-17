@@ -165,7 +165,7 @@ public class ActivityEditExpense extends AppCompatActivity implements AdapterVie
 
     public void PopulateSpinner(){
         Cursor cursor = myDb.viewAllCategoryData();
-        final ArrayList<String> categories = new ArrayList<String>();
+        final ArrayList<String> categories = new ArrayList<>();
         if(cursor.getCount()!=0){
             cursor.moveToFirst();
             do{

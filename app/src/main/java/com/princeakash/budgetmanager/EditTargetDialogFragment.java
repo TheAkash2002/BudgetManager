@@ -47,7 +47,7 @@ public class EditTargetDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.add_new_category_layout, null);
-        editTextNewTarget = (EditText) view.findViewById(R.id.editTextCategoryName);
+        editTextNewTarget = view.findViewById(R.id.editTextCategoryName);
         editTextNewTarget.setText(oldTarget);
 
         builder.setView(view)

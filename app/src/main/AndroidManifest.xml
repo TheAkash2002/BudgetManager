@@ -11,14 +11,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ActivityViewAllCategories"
+            android:label="View All Categories"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ActivityEditExpense"
+        <activity
+            android:name=".ActivityEditExpense"
+            android:label="Edit Expense"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ActivityViewTarget"
+            android:label="View Set Targets"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ActivityAddExpense"
+            android:label="Add Expense"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
@@ -31,33 +36,43 @@
         </activity>
         <activity
             android:name=".ActivityViewMonthlyExpenses"
+            android:label="View Monthly Expenses"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ActivityViewMonthlyExpensesBar"
+            android:label="Bar Graph"
             android:parentActivityName=".ActivityViewMonthlyExpenses" />
         <activity
             android:name=".ActivityViewMonthlyExpensesList"
+            android:label="List of Expenses"
             android:parentActivityName=".ActivityViewMonthlyExpenses" />
         <activity
             android:name=".ActivityViewMonthlyExpensesPie"
+            android:label="Pie Chart"
             android:parentActivityName=".ActivityViewMonthlyExpenses" />
         <activity
             android:name=".ActivityTrackRelative"
+            android:label="Track Relative Change"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ActivityRelativeMonthly"
+            android:label="Monthly"
             android:parentActivityName=".ActivityTrackRelative" />
         <activity
             android:name=".ActivityRelativeLineCategorywise"
+            android:label="Line Graph"
             android:parentActivityName=".ActivityRelativeCategorywise" />
         <activity
             android:name=".ActivityRelativeCategorywise"
+            android:label="Categorywise"
             android:parentActivityName=".ActivityTrackRelative" />
         <activity
             android:name=".ActivityAddTarget"
+            android:label="Add Target"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ActivityRelativeLineMonthly"
+            android:label="Line Graph"
             android:parentActivityName=".ActivityRelativeMonthly" />
     </application>
 

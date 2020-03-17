@@ -165,7 +165,7 @@ public class ActivityAddExpense extends AppCompatActivity implements AdapterView
 
     public void PopulateSpinner(){
         Cursor cursor = myDb.viewAllCategoryData();
-        final ArrayList<String> categories = new ArrayList<String>();
+        final ArrayList<String> categories = new ArrayList<>();
         if(cursor.getCount()!=0){
             cursor.moveToFirst();
             do{

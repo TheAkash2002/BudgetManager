@@ -151,14 +151,12 @@ public class ActivityRelativeLineCategorywise extends AppCompatActivity {
         int currentNum;
         int val;
         for(int i = Integer.parseInt(fromYear); i<=Integer.parseInt(toYear); i++){
-            Log.d("Hi", "Tag1");
             for(int j = 1; j<=12; j++){
                 currentNum = Integer.parseInt(Integer.toString(i)+MonthConvert(j));
                 if(currentNum == lastNum){
                     cursor = myDb.viewRelativeDataCategoryWise(toMonth, toYear, selectedCategory);
                     items = Integer.toString(i) + "-" + MonthConvert(j);
                     if(cursor.getCount()!=0) {
-                        Log.d("E", "FIRE");
                         cursor.moveToFirst();
                         val = cursor.getInt(0);
                         ChartEntry chartEntry = new ChartEntry(val, items);
