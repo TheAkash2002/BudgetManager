@@ -70,7 +70,6 @@ public class ActivityEditExpense extends AppCompatActivity implements AdapterVie
                             return;
                         boolean isUpdated;
                         if(myDb.isTargetSet(dateMonth, dateYear)==true) {
-                            if(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString()) <= myDb.getTarget(dateMonth, dateYear)) {
                                 if((myDb.getTotalExpensesTillNow(dateMonth, dateYear) < myDb.getTarget(dateMonth, dateYear))&&(myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString()) > myDb.getTarget(dateMonth, dateYear))){
                                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                                     builder.setTitle("Confirm Override")
@@ -78,10 +77,10 @@ public class ActivityEditExpense extends AppCompatActivity implements AdapterVie
                                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    if (myDb.insertExpenseData(selectedCategory, editAmount.getText().toString()))
-                                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                                    if (myDb.updateExpenseData(id, selectedCategory, editAmount.getText().toString(), date))
+                                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " in " + DateToString(dateYear, dateMonth), LENGTH_SHORT).show();
                                                     else
-                                                        Toast.makeText(ActivityEditExpense.this, "Failed to inset data.", LENGTH_SHORT).show();
+                                                        Toast.makeText(ActivityEditExpense.this, "Failed to insert data.", LENGTH_SHORT).show();
                                                 }
                                             })
                                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -93,20 +92,17 @@ public class ActivityEditExpense extends AppCompatActivity implements AdapterVie
                                     builder.create().show();
                                 }
                                 else if (myDb.getTotalExpensesTillNow(dateMonth, dateYear) > myDb.getTarget(dateMonth, dateYear)){
-                                    isUpdated = myDb.insertExpenseData(selectedCategory, editAmount.getText().toString());
+                                    isUpdated = myDb.updateExpenseData(id, selectedCategory, editAmount.getText().toString(), date);
                                     if (isUpdated == true)
-                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You have gone overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear)-myDb.getTarget(dateMonth, dateYear)) + " in " + DateToString(dateYear, dateMonth), LENGTH_SHORT).show();
                                     else
-                                        Toast.makeText(ActivityEditExpense.this, "Failed to inset data.", LENGTH_SHORT).show();
+                                        Toast.makeText(ActivityEditExpense.this, "Failed to insert data.", LENGTH_SHORT).show();
                                 }
                                 else{
-                                    isUpdated = myDb.insertExpenseData(selectedCategory, editAmount.getText().toString());
+                                    isUpdated = myDb.updateExpenseData(id, selectedCategory, editAmount.getText().toString(), date);
                                     if (isUpdated == true)
-                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You can spend Rs." + (myDb.getTarget(dateMonth, dateYear)-myDb.getTotalExpensesTillNow(dateMonth, dateYear)) + " this month.", LENGTH_SHORT).show();
+                                        Toast.makeText(ActivityEditExpense.this, "Data Inserted. You could spend Rs." + (myDb.getTarget(dateMonth, dateYear)-myDb.getTotalExpensesTillNow(dateMonth, dateYear)) + " in " + DateToString(dateYear, dateMonth), LENGTH_SHORT).show();
                                 }
-                            }
-                            else
-                                Toast.makeText(ActivityEditExpense.this, "Overflow! You are going overboard by Rs." + (myDb.getTotalExpensesTillNow(dateMonth, dateYear) + parseInt(editAmount.getText().toString())-myDb.getTarget(dateMonth, dateYear)) + " for " + DatabaseHelper.DateToString(dateYear, dateMonth), LENGTH_SHORT).show();
                         }
                         else {
                             String datestr = DateToString(dateYear, dateMonth);

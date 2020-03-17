@@ -90,15 +90,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     public static int setColor(int position){
         switch(position%5){
             case 0:
-                return 0xff42f55a;
+                return 0xffb8b649;
             case 1:
-                return 0xfff5ce42;
+                return 0xffb2f536;
             case 2:
                 return 0xfff58742;
             case 3:
-                return 0xff42c8f5;
+                return 0xff9e907e;
             case 4:
-                return 0xffef42f5;
+                return 0xffeb94e2;
         }
         return 0xff000000;
     }

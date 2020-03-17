@@ -65,7 +65,7 @@ public class ActivityTrackRelative extends AppCompatActivity {
     }
 
     private boolean validations(){
-        return (myDb.viewAllCategoryData().getCount()!=0);
+        return (myDb.getCategoriesfromExpense().getCount()!=0);
     }
 
 }

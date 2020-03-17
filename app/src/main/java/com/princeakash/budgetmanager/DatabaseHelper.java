@@ -278,6 +278,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public Cursor getCategoriesfromExpense(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT DISTINCT " + colExpenseCategory + " FROM " + expenseTable +" WHERE " + colExpenseCategory + " <> ?", new String[]{"Target"});
+        return cursor;
+    }
+
     public static String DateToString(String dateYear, String dateMonth){
         String res = "";
         switch(dateMonth){

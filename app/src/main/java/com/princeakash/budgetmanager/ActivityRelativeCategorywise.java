@@ -143,12 +143,12 @@ public class ActivityRelativeCategorywise extends AppCompatActivity implements A
     }
 
     public void PopulateSpinner(){
-        Cursor cursor = myDb.viewAllCategoryData();
+        Cursor cursor = myDb.getCategoriesfromExpense();
         final ArrayList<String> categories = new ArrayList<>();
         if(cursor.getCount()!=0){
             cursor.moveToFirst();
             do{
-                categories.add(cursor.getString(1));
+                categories.add(cursor.getString(0));
             } while(cursor.moveToNext());
         }
         adapterCats = new BaseAdapter() {
