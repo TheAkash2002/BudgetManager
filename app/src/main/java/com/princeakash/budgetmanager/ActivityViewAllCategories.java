@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +20,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ActivityViewAllCategories extends AppCompatActivity implements CategoryAdapter.OnCategoryListener, EditCategoryDialogFragment.EditCategoryDialogListener {
+import static android.widget.Toast.LENGTH_SHORT;
+
+public class ActivityViewAllCategories extends AppCompatActivity implements CategoryAdapter.OnCategoryListener, EditCategoryDialogFragment.EditCategoryDialogListener, AddCategoryDialogFragment.AddCategoryDialogListener {
 
     @BindView(R.id.recyclerViewTarget)
     RecyclerView recyclerView;
-
+    @BindView(R.id.fabCat)
+    FloatingActionButton floatingActionButtonCategory;
     RecyclerView.Adapter adapter;
     DatabaseHelper myDb;
     List<String> categoryItems;
@@ -37,6 +43,14 @@ public class ActivityViewAllCategories extends AppCompatActivity implements Cate
         getCategoryItems();
 
         populateRecyclerView();
+
+        floatingActionButtonCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new AddCategoryDialogFragment();
+                newFragment.show(getSupportFragmentManager(), "AddCategoryDialogFragment");
+            }
+        });
     }
 
     public void populateRecyclerView() {
@@ -92,14 +106,45 @@ public class ActivityViewAllCategories extends AppCompatActivity implements Cate
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String oldCategoryName, String newCategoryName) {
+    public void onDialogPositiveClick(DialogFragment dialog, final String oldCategoryName, final String newCategoryName) {
         boolean isUpdated = myDb.updateCategory(oldCategoryName, newCategoryName);
         if(isUpdated){
-            Toast.makeText(this, oldCategoryName + " was successfully renamed to " + newCategoryName, Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Rename Category in Old Expenses")
+                    .setMessage("Do you want the category rename to reflect in all old expenses?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(myDb.renameExpenseCategories(oldCategoryName, newCategoryName))
+                                Toast.makeText(getApplicationContext(), "Old Expenses renamed successfully.", LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(getApplicationContext(), "Old expenses not renamed.", LENGTH_SHORT);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(getApplicationContext(), oldCategoryName + " was successfully renamed to " + newCategoryName, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            builder.create().show();
             getCategoryItems();
             populateRecyclerView();
         }
         else
             Toast.makeText(this, "Rename operation not successful.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String categoryName) {
+        boolean isInserted = myDb.insertCategory(categoryName);
+        if(isInserted){
+            Toast.makeText(this, "Inserted new category successfully.", LENGTH_SHORT).show();
+            getCategoryItems();
+            populateRecyclerView();
+        }
+        else{
+            Toast.makeText(this, "Failed to insert new category.", LENGTH_SHORT).show();
+        }
     }
 }

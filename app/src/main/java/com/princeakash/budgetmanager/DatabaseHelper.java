@@ -259,6 +259,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return !(delete==-1);
     }
 
+    public boolean renameExpenseCategories(String oldCategoryName, String newCategoryName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db2 = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ?", new String[]{oldCategoryName});
+        if(cursor.getCount()==0)
+            return false;
+        cursor.moveToFirst();
+        do{
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(colExpenseAmount, cursor.getString(1));
+            contentValues.put(colExpenseCategory, newCategoryName);
+            contentValues.put(colExpenseDate, cursor.getString(3));
+            long update = db2.update(expenseTable, contentValues, colExpenseID + " = ?", new String[]{cursor.getString(0)});
+            if(update==-1)
+                return false;
+        } while(cursor.moveToNext());
+        return true;
+    }
+
     public static String DateToString(String dateYear, String dateMonth){
         String res = "";
         switch(dateMonth){
