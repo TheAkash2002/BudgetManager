@@ -1,5 +1,6 @@
 package com.princeakash.budgetmanager;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,7 +10,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,7 +20,7 @@ import butterknife.ButterKnife;
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.princeakash.budgetmanager.DatabaseHelper.DateToString;
 
-public class ActivityAddTarget extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ActivityAddTarget extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     @BindView(R.id.editTarget)
     EditText editTarget;
@@ -85,17 +88,54 @@ public class ActivityAddTarget extends AppCompatActivity implements AdapterView.
                                 break;
                         }
                         if(myDb.isTargetSet(targetMonth, targetYear)==false) {
+                            if(!inputValidations())
+                                return;
                             boolean isInserted = myDb.insertTargetData(editTarget.getText().toString(), targetMonth, targetYear);
                             if (isInserted == true) {
                                 Toast.makeText(ActivityAddTarget.this, "Target successfully set for " + DateToString(targetYear, targetMonth), LENGTH_SHORT).show();
                             }
                         }
-                        else
-                            Toast.makeText(ActivityAddTarget.this, "Target already set for " + DateToString(targetYear, targetMonth) + ", of Rs." + myDb.getTarget(targetMonth, targetYear), LENGTH_SHORT).show();
-
+                        else {
+                            if(!inputValidations())
+                                return;
+                            EditTarget(v);
+                        }
                     }
                 }
         );
+    }
+
+    private void EditTarget(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("Target Already Set")
+                .setMessage("A target of Rs." + myDb.getTarget(targetMonth, targetYear) + " has already been set for " +
+                        DateToString(targetYear, targetMonth) +". Do you want to update this target?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean isUpdated = myDb.updateTargetData(targetMonth, targetYear, editTarget.getText().toString());
+                        if(isUpdated)
+                            Toast.makeText(ActivityAddTarget.this, "Target successfully updated for " + DateToString(targetYear, targetMonth), LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(ActivityAddTarget.this, "Failed to update target.", LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ActivityAddTarget.this, "Target already set for " + DateToString(targetYear, targetMonth) + ", of Rs." + myDb.getTarget(targetMonth, targetYear), LENGTH_SHORT).show();
+                    }
+                });
+        builder.create().show();
+    }
+
+    private boolean inputValidations() {
+        if(editTarget.getText().toString().equals("")||Integer.parseInt(editTarget.getText().toString())<=0){
+            editTarget.setError("Please enter a positive number.");
+            editTarget.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     @Override

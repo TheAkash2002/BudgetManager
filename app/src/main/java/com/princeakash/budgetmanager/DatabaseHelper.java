@@ -171,6 +171,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return !(result==-1);
     }
 
+    public boolean updateTargetData(String month, String year, String newTarget){
+        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db2 = this.getWritableDatabase();
+        String date = year + "-" + month + "-01";
+        Cursor cursor = db.rawQuery("SELECT * FROM " + expenseTable + " WHERE " + colExpenseCategory + " = ? AND " + colExpenseDate + " = ?", new String[]{"Target", date});
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(colExpenseDate, date);
+        contentValues.put(colExpenseCategory, "Target");
+        contentValues.put(colExpenseAmount, newTarget);
+        long update = db2.update(expenseTable, contentValues, colExpenseCategory + " = ? AND " + colExpenseDate + " = ?", new String[]{"Target", date});
+        return !(update==-1);
+    }
+
     public Boolean deleteTarget(String id){
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(expenseTable, colExpenseID + " = ?", new String[]{id});
